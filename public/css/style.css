@@ -1,0 +1,32 @@
+body{
+}
+.mainbody{
+        margin: 50px auto;
+        height: 1500px;
+}
+.mesatxt{
+        text-align: center;
+        background-color: white;
+        height: 250px;
+}
+.imgdivs{
+        margin: 0 auto;
+        height: 500px;
+        width: 900px;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size:contain;
+        background-position:center;
+}
+#div1{
+        background-image: url('http://lorempixel.com/output/food-q-c-1090-530-1.jpg');
+}
+#div2{
+        background-image: url('http://lorempixel.com/output/food-q-c-1090-530-8.jpg');
+}
+#div3{
+        background-image: url('http://lorempixel.com/output/food-q-c-1090-530-9.jpg');
+}
+#signupdiv{
+        display: inline-block;
+}

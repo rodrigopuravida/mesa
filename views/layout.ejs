@@ -5,13 +5,68 @@
         <script src="//code.jquery.com/jquery.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+        <script src="/js/jquery-2.0.2.js"></script>
+        <script src="/js/jquery.stellar.min.js"></script>
         <script src="/js/script.js"></script>
+
         <link rel='stylesheet' media='screen' href='/css/style.css'>
         <title>mesa</title>
 </head>
 <body>
 <div class="container">
-         <%- body %>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+    <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">mesa</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                                <input type="text" class="form-control" placeholder="find chefs">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i class='glyphicon glyphicon-search'></i></button>
+                </form>
+                <ul class="nav navbar-nav">
+                <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chef<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                        <li><a href="/:id/chefs/new">New Plate</a></li>
+                                        <li><a href="/:id/chefs/plates">My Plates</a></li>
+                                </ul>
+                        </li>
+                        <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plates<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                        <li><a href="/plates/new">New</a></li>
+                                        <li><a href="/plates/trending">Trending</a></li>
+                                        <li><a href="/plates/mychefs">From My Chefs</a></li>
+                                </ul>
+                        </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/chefs/login">Chef Login</a></li>
+                    <li><a href="/patrons/login">Patrons Login</a></li>
+                </ul>
+        </div>
+</div>
+</nav>
+<div class="mainbody">
+    <%- body %>
+</div>
+         <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+         <div class="container">
+             <div class="collapse navbar-collapse navbar-ex1-collapse">
+                 <ul class="nav navbar-nav">
+                 </ul>
+             </div>
+         </div>
+         </nav>
 </div>
 </body>
 </html>
