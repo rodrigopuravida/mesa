@@ -5,6 +5,7 @@ var ejsLayouts = require('express-ejs-layouts');
 var request = require('request');
 var db = require('./models');
 
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(ejsLayouts);
