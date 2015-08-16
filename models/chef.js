@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
        notEmpty: true
      }
    },
-email: {
+  email: {
      type: DataTypes.STRING,
      validate: {
        isEmail:true

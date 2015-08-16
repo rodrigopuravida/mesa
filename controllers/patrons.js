@@ -2,6 +2,33 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var db = require("../models");
+var session = require('express-session');
+var flash = require('connect-flash');
+
+router.use(session({
+ secret:'hdkfjhsdkhfksdhfhdpfhpsdkfhskdjfh',
+ resave: false,
+ saveUninitialized: true
+}));
+router.use(flash());
+router.use(function(req,res,next){
+
+ if(req.session.patron){
+   db.patron.findById(req.session.patron).then(function(patron){
+     req.currentPatron = patron;
+     next();
+   });
+
+ }else{
+   req.currentPatron = false;
+   next();
+ }
+});
+router.use(function(req,res,next){
+ res.locals.currentPatron = req.currentPatron;
+ res.locals.alerts = req.flash();
+ next();
+});
 
 // View Signup Page
 router.get("/signup", function(req, res){
@@ -10,9 +37,13 @@ router.get("/signup", function(req, res){
 
 // Post Signup
 router.post("/signup", function(req, res){
-        res.redirect('patrons/login');
+        db.patron.create({
+            email: req.body.email,
+            password: req.body.password,
+            phone: req.body.phone
+        });
+        res.redirect('login');
 });
-
 // View Login Page
 router.get("/login", function(req, res){
         res.render('patrons/login');
@@ -26,8 +57,8 @@ router.post("/login", function(req, res){
                         res.send(err);
                 }else if(patron){
                         req.session.patron = patron.id;
-                        req.flash('success','Welcome Chef.');
-                        res.redirect('plates/new');
+                        req.flash('success','Welcome patron.');
+                        res.redirect('/plates/new');
                 }else{
                         req.flash('danger',"Sorry, we don't recognize that username and/or password");
                         res.redirect('patrons/login');
@@ -36,10 +67,10 @@ router.post("/login", function(req, res){
 
 });
 
-// Post Logout
-router.post("logout", function(req, res){
+// Logout
+router.get("/logout", function(req, res){
         req.flash('info','Thanks, patron. Until we dine again!.');
-          req.session.user = false;
+          req.session.patron = false;
           res.redirect('/');
 });
 
