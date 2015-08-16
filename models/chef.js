@@ -1,4 +1,5 @@
 'use strict';
+var bcrypt = require('bcrypt');
 module.exports = function(sequelize, DataTypes) {
  var chef = sequelize.define('chef', {
    name: {
@@ -20,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
      }
    },
    chef_bio: {
-     type: DataTypes.TEXT,
+     type: DataTypes.STRING,
      validate: {
        notEmpty: true
      }
@@ -66,20 +67,20 @@ email: {
          }
        }).catch(callback);
      }
+   },
+   hooks: {
+     beforeCreate: function(chef, options, callback){
+       if(chef.password){
+         bcrypt.hash(chef.password,10,function(error,hash){
+           if(error) return callback(error);
+           chef.password = hash;
+           callback(null, chef);
+         });
+       }else{
+         callback(null, chef);
+       }
+     }
    }
-   // hooks: {
-   //   beforeCreate: function(chef, options, callback){
-   //     if(chef.password){
-   //       bcrypt.hash(chef.password,10,function(error,hash){
-   //         if(error) return callback(error);
-   //         chef.password = hash;
-   //         callback(null, chef);
-   //       });
-   //     }else{
-   //       callback(null, chef);
-   //     }
-   //   }
-   // }
  });
  return chef;
 };

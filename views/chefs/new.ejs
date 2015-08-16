@@ -1,1 +1,14 @@
 <h2>Add A Plate</h2>
+
+<form action="/chefs/<%= chefId %>/plates/new" method="POST" role="form">
+
+  <div class="form-group">
+      <input type="text" class="form-control" name="name" placeholder="your plate name">
+      <input type="text" class="form-control" name="description" placeholder="your plate description">
+      <input type="text" class="form-control" name="photo" placeholder="your plate photo">
+      <input type="text" class="form-control" name="deal" placeholder="your plate deal">
+  </div>
+
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
