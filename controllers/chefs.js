@@ -12,7 +12,6 @@ router.use(session({
 }));
 router.use(flash());
 router.use(function(req,res,next){
- // req.session.user = 8;
  if(req.session.chef){
    db.chef.findById(req.session.chef).then(function(chef){
      req.currentChef = chef;
@@ -72,8 +71,8 @@ router.post("/login", function(req, res){
 
 });
 
-// Post Logout
-router.post("/logout", function(req, res){
+// Logout
+router.get("/logout", function(req, res){
         req.flash('info','Thanks, chef. Until we cook again!');
         req.session.user = false;
         res.redirect('/');
@@ -109,6 +108,11 @@ router.post("/:id/plates/new", function(req, res){
                 });
         });
                 res.render('plates/new');
+});
+
+router.get("/:id/plates/index", function(req, res){
+        var id = req.params.id;
+        res.render('plates/index', {chefId:id});
 });
 
 
