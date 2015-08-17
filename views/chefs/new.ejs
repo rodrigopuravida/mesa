@@ -1,14 +1,40 @@
 <h2>Add A Plate</h2>
 
+
 <form action="/chefs/<%= chefId %>/plates/new" method="POST" role="form">
 
   <div class="form-group">
       <input type="text" class="form-control" name="name" placeholder="your plate name">
       <input type="text" class="form-control" name="description" placeholder="your plate description">
-      <input type="text" class="form-control" name="photo" placeholder="your plate photo">
+
+      <!--<label class="control-label">Select a plate photo</label>
+      <input id="dish_photo" type="file" class="file" name="photo">-->
+
+      <!--this is cloudinary section-->
+      <a href="#" id="upload_widget_opener">Upload Plate image</a>
+
+      <script type="text/javascript">
+      document.getElementById("upload_widget_opener").addEventListener("click", function() {
+
+      cloudinary.openUploadWidget({ cloud_name: 'dpqunwmnb', upload_preset: 'r7wc50dt'},
+      function(error, result) {
+        console.log(result[0]["url"]);
+        console.log(error, result)
+        var photoLocation = $('#photo_url');
+        photoLocation.val(result[0]["url"]);
+
+      });
+
+      }, false);
+      </script>
+      <input type="text" class="form-control" name="photo" value = '' id = 'photo_url' readonly>
       <input type="text" class="form-control" name="deal" placeholder="your plate deal">
   </div>
 
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
+
+

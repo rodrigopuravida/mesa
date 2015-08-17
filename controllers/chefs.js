@@ -1,3 +1,12 @@
+
+//cloudinary section
+// var dotenv = require('dotenv');
+// dotenv.load();
+var fs = require('fs');
+var cloudinary = require('cloudinary').v2;
+var uploads = {};
+//end of cloudinary section
+
 var express = require('express');
 var router = express.Router();
 var request = require('request');
@@ -95,10 +104,26 @@ router.get("/:id/plates/", function(req, res){
 // New Plate For A Chef -- This will not work until we pass information (params :id) in.
 router.get("/:id/plates/new", function(req, res){
         var id = req.params.id;
-        res.render('chefs/new', {chefId:id});
+
+
+        res.render('chefs/new', {chefId:id, cloudName:process.env.CLOUDINARY_CLOUD_NAME,
+         preset:process.env.CLOUDINARY_UPLOAD_PRESET
+        });
+          console.log(process.env.CLOUDINARY_CLOUD_NAME);
+         console.log(process.env.CLOUDINARY_UPLOAD_PRESET);
 });
 router.post("/:id/plates/new", function(req, res){
         var id = req.params.id;
+
+//cloudinary upload section
+
+
+
+    console.log('My Photo:');
+    console.log(req.body);
+
+        //waiting of creation of plate
+        console.log('I am at create stage of plate past Cloudinary upload');
          db.chef.findById(id).then(function(chef){
             chef.createPlate({
                 name: req.body.name,
@@ -107,13 +132,26 @@ router.post("/:id/plates/new", function(req, res){
                 deal: req.body.deal
                 });
         });
-                res.render('plates/new');
+
+
+        res.render('plates/new');
 });
 
 router.get("/:id/plates/index", function(req, res){
         var id = req.params.id;
         res.render('plates/index', {chefId:id});
 });
+
+
+function waitForAllUploads(id,err,image){
+   uploads[id] = image;
+   var ids = Object.keys(uploads);
+   if (ids.length==6){
+     console.log();
+     console.log ('**  uploaded all files ('+ids.join(',')+') to cloudinary');
+     performTransformations();
+   }
+ }
 
 
 
