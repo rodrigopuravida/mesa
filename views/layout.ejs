@@ -65,6 +65,13 @@
 </div>
 </nav>
 <div class="mainbody">
+<% if(typeof alerts !== 'undefined'){ %>
+   <% for(key in alerts){ %>
+       <% alerts[key].forEach(function(thisMsg){ %>
+           <div class="alert alert-<%= key %>"><%= thisMsg %></div>
+       <% }); %>
+   <% } %>
+<% } %>
     <%- body %>
 </div>
          <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">

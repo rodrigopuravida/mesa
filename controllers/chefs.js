@@ -13,12 +13,19 @@ var request = require('request');
 var db = require("../models");
 var session = require('express-session');
 var flash = require('connect-flash');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+// var FacebookStrategy = require('passport-facebook').Strategy;
 
 router.use(session({
  secret:'lskdfjlasjdlfjlsdjflkdsjfksdjljlk',
  resave: false,
  saveUninitialized: true
 }));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
 router.use(flash());
 router.use(function(req,res,next){
  if(req.session.chef){
@@ -37,6 +44,44 @@ router.use(function(req,res,next){
  res.locals.alerts = req.flash();
  next();
 });
+
+//serialize chef
+ passport.serializeUser(function(chef, done) {
+  done(null, chef.id);
+});
+
+//deserialize chef
+passport.deserializeUser(function(id, done) {
+  db.chef.findById(id).then(function(chef) {
+    done(null, chef.get());
+  }).catch(done);
+});
+
+passport.use(new LocalStrategy({
+   usernameField:'email'
+ },
+ function(email,password,done){
+   db.chef.find({where:{email:email}}).then(function(chef){
+     if(chef){
+       //found the chef
+       chef.checkPassword(password,function(err,result){
+         if(err) return done(err);
+         if(result){
+           //good password
+           done(null,chef.get());
+         }else{
+           //bad password
+           done(null,false,{message: 'Invalid Password.'});
+         }
+       });
+     }else{
+       //didn't find the chef
+       done(null,false,{message: 'Unknown chef. Please sign up.'});
+     }
+   });
+ }
+));
+
 
 
 // View Signup Page
@@ -64,27 +109,49 @@ router.get("/login", function(req, res){
 // Post Login
 router.post("/login", function(req, res){
 
-        db.chef.authenticate(req.body.email,req.body.password,function(err,chef){
-                if(err){
-                        res.send(err);
-                }else if(chef){
-                        req.session.chef = chef.id;
-                        req.flash('success','Welcome Chef.');
-                        res.redirect('/chefs/' + req.session.chef + '/plates/new');
-                        // res.redirect('currentChef.id/plates/new');
-                }else{
-                        req.flash('danger',"Sorry, we don't recognize that username and/or password");
-                        res.redirect('login');
-                }
-                });
+    passport.authenticate(
+   'local',
+   {badRequestMessage:'You must enter e-mail and password.'},
+   function(err,chef,info){
+     if(chef){
+       req.login(chef,function(err){
+         if(err) throw err;
+         req.flash('success','You are now logged in.');
+         res.redirect('/chefs/' + req.session.chef + '/plates/new');
+       });
+     }else{
+       req.flash('danger',info.message || 'Unknown error.');
+       res.redirect('login');
+     }
+   }
+ )(req,res);
+
+        // db.chef.authenticate(req.body.email,req.body.password,function(err,chef){
+        //         if(err){
+        //                 res.send(err);
+        //         }else if(chef){
+        //                 req.session.chef = chef.id;
+        //                 req.flash('success','Welcome Chef.');
+        //                 res.redirect('/chefs/' + req.session.chef + '/plates/new');
+        //                 // res.redirect('currentChef.id/plates/new');
+        //         }else{
+        //                 req.flash('danger',"Sorry, we don't recognize that username and/or password");
+        //                 res.redirect('login');
+        //         }
+        //         });
 
 });
 
 // Logout
 router.get("/logout", function(req, res){
-        req.flash('info','Thanks, chef. Until we cook again!');
-        req.session.user = false;
-        res.redirect('/');
+
+   req.logout();
+   req.flash('info','You have been logged out.');
+   res.redirect('/');
+
+        // req.flash('info','Thanks, chef. Until we cook again!');
+        // req.session.user = false;
+        // res.redirect('/');
 });
 
 // View Chef Page-- This will not work until we pass information (params :id) in.
@@ -152,6 +219,9 @@ function waitForAllUploads(id,err,image){
      performTransformations();
    }
  }
+
+
+
 
 
 

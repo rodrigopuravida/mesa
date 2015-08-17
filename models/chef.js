@@ -68,6 +68,15 @@ module.exports = function(sequelize, DataTypes) {
        }).catch(callback);
      }
    },
+   instanceMethods: {
+     checkPassword: function(pass,callback){
+       if(pass && this.password){
+         bcrypt.compare(pass,this.password,callback);
+       }else{
+         callback(null,false);
+       }
+     }
+   },
    hooks: {
      beforeCreate: function(chef, options, callback){
        if(chef.password){
