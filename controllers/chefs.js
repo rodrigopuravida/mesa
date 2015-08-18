@@ -91,21 +91,22 @@ passport.use(new FacebookStrategy({
  clientID: process.env.FACEBOOK_APP_ID,
  clientSecret: process.env.FACEBOOK_APP_SECRET,
 
- callbackURL: BASE_URL + '/auth/callback/facebook',
- profileFields: ['email','displayName']
+ callbackURL: BASE_URL + '/chefs/callback/facebook/',
+ profileFields: ['email','displayName'],
+ enableProof: true
 },function(accessToken, refreshToken, profile, done){
- db.provider.find({
+ db.providerChef.find({
    where:{
      pid:profile.id,
-     type:profile.provider
+     // type:profile.provider
    },
    include:[db.chef]
- }).then(function(provider){
-   if(provider && provider.chef){
+ }).then(function(providerChef){
+   if(providerChef && providerChef.chef){
      //login
-     provider.token = accessToken;
-     provider.save().then(function(){
-       done(null,provider.chef.get());
+     providerChef.token = accessToken;
+     providerChef.save().then(function(){
+       done(null,providerChef.chef.get());
      });
    }else{
      //signup
@@ -117,10 +118,10 @@ passport.use(new FacebookStrategy({
      }).spread(function(chef,created){
        if(created){
          //chef was created
-         chef.createProvider({
+         chef.createProviderChef({
            pid:profile.id,
            token:accessToken,
-           type:profile.provider
+           type:profile.providerChef
          }).then(function(){
            done(null,chef.get());
          })
@@ -166,6 +167,7 @@ router.get('/login/:provider',function(req,res){
 // facebook callback
 router.get('/callback/:provider',function(req,res){
  passport.authenticate(req.params.provider,function(err,chef,info){
+  console.log('chef', chef);
    if(err) throw err;
    if(chef){
      req.login(chef,function(err){
@@ -175,6 +177,7 @@ router.get('/callback/:provider',function(req,res){
      });
    }else{
      var errorMsg = info && info.message ? info.message : 'Unknown error';
+     console.log('******************', errorMsg);
      req.flash('danger',errorMsg);
      res.redirect('login')
    }
@@ -251,15 +254,12 @@ router.get("/:id/plates/new", function(req, res){
         res.render('chefs/new', {chefId:id, cloudName:process.env.CLOUDINARY_CLOUD_NAME,
          preset:process.env.CLOUDINARY_UPLOAD_PRESET
         });
-          console.log(process.env.CLOUDINARY_CLOUD_NAME);
-         console.log(process.env.CLOUDINARY_UPLOAD_PRESET);
+
 });
 router.post("/:id/plates/new", function(req, res){
         var id = req.params.id;
 
 //cloudinary upload section
-
-
 
     console.log('My Photo:');
     console.log(req.body);
