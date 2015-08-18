@@ -15,7 +15,9 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-// var FacebookStrategy = require('passport-facebook').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var BASE_URL =  'http://localhost:3000';
+
 
 router.use(session({
  secret:'lskdfjlasjdlfjlsdjflkdsjfksdjljlk',
@@ -62,6 +64,7 @@ passport.use(new LocalStrategy({
  },
  function(email,password,done){
    db.chef.find({where:{email:email}}).then(function(chef){
+    // console.log('my' + chef.id + 'is awesome');
      if(chef){
        //found the chef
        chef.checkPassword(password,function(err,result){
@@ -81,7 +84,54 @@ passport.use(new LocalStrategy({
    });
  }
 ));
+ // console.log(process.env.FACEBOOK_APP_ID);
+ //  console.log(process.env.FACEBOOK_APP_SECRET);
 
+passport.use(new FacebookStrategy({
+ clientID: process.env.FACEBOOK_APP_ID,
+ clientSecret: process.env.FACEBOOK_APP_SECRET,
+
+ callbackURL: BASE_URL + '/auth/callback/facebook',
+ profileFields: ['email','displayName']
+},function(accessToken, refreshToken, profile, done){
+ db.provider.find({
+   where:{
+     pid:profile.id,
+     type:profile.provider
+   },
+   include:[db.chef]
+ }).then(function(provider){
+   if(provider && provider.chef){
+     //login
+     provider.token = accessToken;
+     provider.save().then(function(){
+       done(null,provider.chef.get());
+     });
+   }else{
+     //signup
+     // console.log(profile);
+     var email = profile.emails[0].value;
+     db.chef.findOrCreate({
+       where:{email:email},
+       defaults:{email:email,name:profile.displayName}
+     }).spread(function(chef,created){
+       if(created){
+         //chef was created
+         chef.createProvider({
+           pid:profile.id,
+           token:accessToken,
+           type:profile.provider
+         }).then(function(){
+           done(null,chef.get());
+         })
+       }else{
+         //signup failed
+         done(null,false,{message:'You already signed up with this e-mail address. Please login.'})
+       }
+     });
+   }
+ });
+}));
 
 
 // View Signup Page
@@ -105,6 +155,31 @@ router.post("/signup", function(req, res){
 router.get("/login", function(req, res){
         res.render('chefs/login');
 });
+// facebook login
+router.get('/login/:provider',function(req,res){
+ passport.authenticate(
+   req.params.provider,
+   {scope:['public_profile','email']}
+ )(req,res);
+});
+
+// facebook callback
+router.get('/callback/:provider',function(req,res){
+ passport.authenticate(req.params.provider,function(err,chef,info){
+   if(err) throw err;
+   if(chef){
+     req.login(chef,function(err){
+       if(err) throw err;
+       req.flash('success','You are now logged in.');
+       res.redirect('/plates/new')
+     });
+   }else{
+     var errorMsg = info && info.message ? info.message : 'Unknown error';
+     req.flash('danger',errorMsg);
+     res.redirect('login')
+   }
+ })(req,res);
+});
 
 // Post Login
 router.post("/login", function(req, res){
@@ -117,7 +192,7 @@ router.post("/login", function(req, res){
        req.login(chef,function(err){
          if(err) throw err;
          req.flash('success','You are now logged in.');
-         res.redirect('/chefs/' + req.session.chef + '/plates/new');
+         res.redirect('/chefs/' + chef.id + '/plates/new');
        });
      }else{
        req.flash('danger',info.message || 'Unknown error.');

@@ -61,7 +61,7 @@ router.post("/login", function(req, res){
                         res.redirect('/plates/new');
                 }else{
                         req.flash('danger',"Sorry, we don't recognize that username and/or password");
-                        res.redirect('patrons/login');
+                        res.redirect('login');
                 }
                 });
 
