@@ -51,6 +51,7 @@ module.exports = function(sequelize, DataTypes) {
      associate: function(models) {
        models.chef.belongsToMany(models.patron, {through: "chefsPatrons"});
        models.chef.hasMany(models.plate);
+       models.chef.hasMany(models.providerChef);
      },
      authenticate: function(email,password,callback){
        this.find({where:{email:email}}).then(function(chef){
