@@ -66,6 +66,7 @@ passport.use(new LocalStrategy({
    db.chef.find({where:{email:email}}).then(function(chef){
     // console.log('my' + chef.id + 'is awesome');
      if(chef){
+      req.session.chef = chef.id;
        //found the chef
        chef.checkPassword(password,function(err,result){
          if(err) return done(err);
@@ -121,7 +122,7 @@ passport.use(new FacebookStrategy({
          chef.createProviderChef({
            pid:profile.id,
            token:accessToken,
-           type:profile.providerChef
+           type:profile.provider
          }).then(function(){
            done(null,chef.get());
          })
@@ -142,14 +143,15 @@ router.get("/signup", function(req, res){
 
 // Post Signup
 router.post("/signup", function(req, res){
-        db.chef.create({name: req.body.name,
-                        rest_name: req.body.rest_name,
-                        rest_location: req.body.email,
-                        chef_bio: req.body.chef_bio,
-                        chef_photo: req.body.chef_photo,
-                        email: req.body.email,
-                        password: req.body.password });
-        res.redirect('login');
+    db.chef.create({
+      name: req.body.name,
+      rest_name: req.body.rest_name,
+      rest_location: req.body.email,
+      chef_bio: req.body.chef_bio,
+      chef_photo: req.body.chef_photo,
+      email: req.body.email,
+      password: req.body.password });
+    res.redirect('login');
 });
 
 // View Login Page
@@ -170,10 +172,12 @@ router.get('/callback/:provider',function(req,res){
   console.log('chef', chef);
    if(err) throw err;
    if(chef){
+    req.session.chef = chef.id;
+    // console.log('**********',chef.id)
      req.login(chef,function(err){
        if(err) throw err;
        req.flash('success','You are now logged in.');
-       res.redirect('/plates/new')
+       res.redirect('/chefs/' + chef.id + '/plates/new')
      });
    }else{
      var errorMsg = info && info.message ? info.message : 'Unknown error';
@@ -192,9 +196,12 @@ router.post("/login", function(req, res){
    {badRequestMessage:'You must enter e-mail and password.'},
    function(err,chef,info){
      if(chef){
+      req.session.chef = chef.id;
        req.login(chef,function(err){
          if(err) throw err;
          req.flash('success','You are now logged in.');
+         // console.log('*************',chef.id)
+         // console.log('***********providerchef',providerChef.chefId)
          res.redirect('/chefs/' + chef.id + '/plates/new');
        });
      }else{
@@ -249,6 +256,8 @@ router.get("/:id/plates/", function(req, res){
 // New Plate For A Chef -- This will not work until we pass information (params :id) in.
 router.get("/:id/plates/new", function(req, res){
         var id = req.params.id;
+        console.log('**************',req.session.chef)
+
 
 
         res.render('chefs/new', {chefId:id, cloudName:process.env.CLOUDINARY_CLOUD_NAME,
