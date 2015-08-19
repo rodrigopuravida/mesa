@@ -1,16 +1,16 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var providerChef = sequelize.define('providerChef', {
+  var provider = sequelize.define('provider', {
     pid: DataTypes.STRING,
     token: DataTypes.STRING,
     type: DataTypes.STRING,
-    chefId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
-        models.providerChef.belongsTo(models.chef);
+        models.provider.belongsTo(models.user);
       }
     }
   });
-  return providerChef;
+  return provider;
 };

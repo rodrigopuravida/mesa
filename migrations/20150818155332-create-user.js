@@ -1,12 +1,15 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('patrons', {
+    return queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      name: {
+        type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
@@ -14,8 +17,11 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-        phone: {
+      phone: {
         type: Sequelize.STRING
+      },
+      isChef: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +34,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('patrons');
+    return queryInterface.dropTable('users');
   }
 };
