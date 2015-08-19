@@ -69,7 +69,7 @@ var authToken = process.env.TWILIO_AUTH_TOKEN;
 
         to: user[i].phone,
         from: "+13852824298",
-        body: "MESA Special of the Week from Chef" +  user[1].name,
+        body: "MESA Special of the Week from Chef " +  user[1].name,
         mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1440020189/hmzhh6u9eo8ta926ohaf.jpg",
       }, function(err, message) {
         console.log(message.sid, err);
