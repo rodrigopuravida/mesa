@@ -1,7 +1,7 @@
 <h2>Add A Plate</h2>
 
 
-<form action="/chefs/<%= chefId %>/plates/new" method="POST" role="form">
+<form action="/chefs/plates/new" method="POST" role="form">
 
   <div class="form-group">
       <input type="text" class="form-control" name="name" placeholder="your plate name">
@@ -29,9 +29,12 @@
       </script>
       <input type="text" class="form-control" name="photo" value = '' id = 'photo_url' readonly>
       <input type="text" class="form-control" name="deal" placeholder="your plate deal">
+      <input type="hidden" class="form-control" name="id" value=<%= currentUser.id %>>
   </div>
 
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+<!--
+<p> Current User <%= currentUser.id %></p>
+ -->

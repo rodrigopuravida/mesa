@@ -59,19 +59,24 @@ router.get("/:id/plates/index", function(req, res){
 });
 
 // New Plate For A Chef
-router.get("/:id/plates/new", function(req, res){
-        var id = req.params.id;
-        res.render('chefs/new', {chefId:id, cloudName:process.env.CLOUDINARY_CLOUD_NAME,
+router.get("/plates/new", function(req, res){
+        id = req.user
+        res.render('chefs/new', {
+          chefId:id,
+          cloudName:process.env.CLOUDINARY_CLOUD_NAME,
          preset:process.env.CLOUDINARY_UPLOAD_PRESET
         });
 });
 
 // Chef Posts A Post New Plate
-router.post("/:id/plates/new", function(req, res){
-        var id = req.params.id;
+router.post("/plates/new", function(req, res){
+        var id = req.user.id
+
 //Cloudinary Upload Section
         // console.log('I am at create stage of plate past Cloudinary upload');
-         db.chef.findById(id).then(function(chef){
+         db.chef.find({
+          where: {userId: id}
+        }).then(function(chef){
             chef.createPlate({
                 name: req.body.name,
                 description: req.body.description,
