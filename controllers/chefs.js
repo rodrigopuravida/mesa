@@ -6,10 +6,23 @@ var passport = require('passport');
 var cloudinary = require('cloudinary').v2;
 var uploads = {};
 
+// View All Chefs
+router.get("/", function(req, res){
+    db.chef.findAll({
+    include : [db.user]
+  }).then(function(chef) {
+    res.render('chefs/index', {chefs: chef});
+      });
+});
 
-// View Chef Page-- This will not work until we pass information (params :id) in.
+// View Chef Page
 router.get("/:id/show", function(req, res){
-        res.render('chefs/show');
+    db.chef.find({
+    where: {id: req.params.id},
+    include : [db.user]
+  }).then(function(chef) {
+    res.render('chefs/show', {chef: chef});
+      });
 });
 
 // Follow Chef
@@ -71,7 +84,6 @@ router.get("/plates/new", function(req, res){
 // Chef Posts A Post New Plate
 router.post("/plates/new", function(req, res){
         var id = req.user.id
-
 //Cloudinary Upload Section
         // console.log('I am at create stage of plate past Cloudinary upload');
          db.chef.find({
