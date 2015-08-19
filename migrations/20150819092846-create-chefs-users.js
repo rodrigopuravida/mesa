@@ -1,17 +1,17 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('chefsPatrons', {
+    return queryInterface.createTable('chefsUsers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      chefId: {
+      userId: {
         type: Sequelize.INTEGER
       },
-      patronId: {
+      chefId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('chefsPatrons');
+    return queryInterface.dropTable('chefsUsers');
   }
 };
