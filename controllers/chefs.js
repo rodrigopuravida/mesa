@@ -5,6 +5,7 @@ var db = require("../models");
 var passport = require('passport');
 var cloudinary = require('cloudinary').v2;
 var uploads = {};
+var twilio = require('twilio');
 
 
 // View Chef Page-- This will not work until we pass information (params :id) in.
@@ -52,10 +53,31 @@ router.post("/:id/show", function(req, res){
   // }
 });
 
-// List All of Chef's Plates
-router.get("/:id/plates/index", function(req, res){
-        var id = req.params.id;
-        res.render('plates/index', {chefId:id});
+router.get("/plates/index", function(req, res){
+
+console.log('I am in test mode');
+
+var accountSid = process.env.TWILIO_ACCOUNT_SID;
+var authToken = process.env.TWILIO_AUTH_TOKEN;
+
+  db.user.findAll().then(function(user){
+    for(var i = 0; i < user.length; i++) {
+
+    console.log(user[i].phone);
+      var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+      client.messages.create({
+
+        to: user[i].phone,
+        from: "+13852824298",
+        body: "MESA Special of the Week from Chef" +  user[1].name,
+        mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1440020189/hmzhh6u9eo8ta926ohaf.jpg",
+      }, function(err, message) {
+        console.log(message.sid, err);
+      });
+    };
+  });
+
+    res.render('plates/index', {chefId:1});
 });
 
 // New Plate For A Chef
