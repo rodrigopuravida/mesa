@@ -3,6 +3,7 @@
 // var dotenv = require('dotenv');
 // dotenv.load();
 var fs = require('fs');
+var twilio = require('twilio');
 var cloudinary = require('cloudinary').v2;
 var uploads = {};
 //end of cloudinary section
@@ -17,6 +18,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var BASE_URL =  'http://localhost:3000';
+
+var patronNumbers = [];
 
 
 router.use(session({
@@ -66,7 +69,7 @@ passport.use(new LocalStrategy({
    db.chef.find({where:{email:email}}).then(function(chef){
     // console.log('my' + chef.id + 'is awesome');
      if(chef){
-      req.session.chef = chef.id;
+      // req.session.chef = chef.id;
        //found the chef
        chef.checkPassword(password,function(err,result){
          if(err) return done(err);
@@ -289,9 +292,52 @@ router.post("/:id/plates/new", function(req, res){
 });
 
 router.get("/:id/plates/index", function(req, res){
-        var id = req.params.id;
-        res.render('plates/index', {chefId:id});
+
+console.log('I am in test mode');
+console.log(req.session.chef);
+
+var accountSid = process.env.TWILIO_ACCOUNT_SID;
+var authToken = process.env.TWILIO_AUTH_TOKEN;
+
+  db.patron.findAll().then(function(patron){
+    for(var i = 0; i < patron.length; i++) {
+
+    console.log(patron[i].phone);
+      var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+      client.messages.create({
+
+        to: patron[i].phone,
+        from: "+13852824298",
+        body: "MESA Special of the Week from The World of Craziness",
+        mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1439833856/v8psjfasvnpzw9atlpjl.jp",
+      }, function(err, message) {
+        console.log(message.sid, err);
+      });
+    };
+  });
+
+    res.render('plates/index', {chefId:1});
 });
+
+
+
+
+
+
+// var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+// client.messages.create({
+//   to: "2062286840",
+//   from: "+13852824298",
+//   body: "MESA Special of the Week from Bobby Flay",
+//   mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1439833856/v8psjfasvnpzw9atlpjl.jpg",
+// }, function(err, message) {
+//   console.log(message.sid, err);
+// });
+
+
+//         var id = req.params.id;
+//         res.render('plates/index', {chefId:id});
+// });
 
 
 function waitForAllUploads(id,err,image){
@@ -303,6 +349,30 @@ function waitForAllUploads(id,err,image){
      performTransformations();
    }
  }
+
+//  var processPhoneNumbers = function(callback) {
+
+//   fetchData(function(data) {
+//     db.patron.findAll().then(function(patron){
+//     for(var i = 0; i < patron.length; i++) {
+//       var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+//       client.messages.create({
+//         to: patron[i].phone,
+//         from: "+13852824298",
+//         body: "MESA Special of the Week from The World of Craziness",
+//         mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1439833856/v8psjfasvnpzw9atlpjl.jp",
+//       }, function(err, message) {
+//         console.log(message.sid, err);
+//       });
+//     };
+//   });
+// });
+// };
+
+
+
+
+
 
 
 
