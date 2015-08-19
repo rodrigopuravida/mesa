@@ -4,14 +4,8 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var db = require("../models");
-<<<<<<< HEAD
-
-=======
 var twilio = require('twilio');
->>>>>>> 27a1064ec399432f092fe48df2d1e8c69502eef2
 
-
-var patronNumbers = [];
 
 // View Today's Plates
 router.get("/new", function(req, res){
@@ -22,9 +16,11 @@ router.get("/new", function(req, res){
 //test twilio route
 router.get("/test", function(req, res) {
 
+console.log('I am in test mode');
 
-<<<<<<< HEAD
-=======
+  var accountSid = process.env.TWILIO_ACCOUNT_SID;
+var authToken = process.env.TWILIO_AUTH_TOKEN;
+
 var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 client.messages.create({
   to: "2062146817",
@@ -34,7 +30,6 @@ client.messages.create({
 }, function(err, message) {
   console.log(message, err);
 });
->>>>>>> 27a1064ec399432f092fe48df2d1e8c69502eef2
 
 res.render('plates/new');
 
