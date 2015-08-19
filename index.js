@@ -27,21 +27,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(function(req,res,next){
-//   if(req.session.user){
-//     db.user.findById(req.session.user).then(function(user){
-//     req.currentuser = user;
-//     next();
-//   });
-//   }else{
-//     req.currentUser = false;
-//     next();
-//   }
-// });
+app.use(function(req,res,next){
+  if(req.session.user){
+    db.user.findById(req.session.user).then(function(user){
+    req.currentUser = user
+    next();
+  });
+  }else{
+    req.currentUser = false;
+    next();
+  }
+});
 
 app.use(flash());
 app.use(function(req,res,next){
-    res.locals.currentUser = req.user;
+    app.locals.currentUser = req.user;
     res.locals.alerts = req.flash();
     next();
 });
