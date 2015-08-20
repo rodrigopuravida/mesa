@@ -7,12 +7,20 @@
                         <input type="text" class="form-control" name="name" value="<%= user.name %>">
                         <input type="text" class="form-control" name="email" value="<%= user.email %>">
                         <input type="text" class="form-control" name="phone" value="<%= user.phone %>">
-                            <% if(user.isChef === true) { %>
+<!--                             <% if(user.isChef === true) { %>
+                                        <p>You are currently a chef. Want to change?</p>
+                             <% } else  { %>
+                                        <p>You are currently a patron.Want to change?</p>
+                             <% } %> -->
+                        <select name='chef'>
+                                <option value="<%= user.isChef  %>">
+                                                            <% if(user.isChef === true) { %>
                                         <p>You are currently a chef. Want to change?</p>
                              <% } else  { %>
                                         <p>You are currently a patron.Want to change?</p>
                              <% } %>
-                        <select name='chef'>
+
+                                </option>
                                 <option value="true">I'm a chef</option>
                                 <option value="false">I just want to eat</option>
                 </select>
