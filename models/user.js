@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         models.user.hasOne(models.chef);
         models.user.belongsToMany(models.chef, {through: 'chefsUsers'});
+        // models.user.hasAndBelongsToMany(models.user as 'chef', through: 'chefsUsers')
         models.user.hasMany(models.provider);
       },
       authenticate: function(email,password,callback){

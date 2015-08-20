@@ -18,12 +18,10 @@ router.get("/edit", function(req, res){
                         include: [db.user]
                 }).then(function(chef){
                         res.render('users/edit', {mychef: chef});
-                        // console.log('*************************chef',chef)
                 });
         } else {
             db.user.findById(thisUser.id).then(function(user){
                        res.render('users/edit', {mychef: user});
-                       // console.log('********************user',user)
                    });
         }
         // res.redirect('/')
@@ -51,8 +49,8 @@ router.post("/edit", function(req, res){
                                 });
                         });
                 });
-        } else if (thisUser.isChef === null) {
-            // console.log("**********************this user id", thisUser.id)
+        } else if ((thisUser.isChef === null) || (thisUser.isChef === false)) {
+            console.log("**********************please this user id", thisUser.id)
               db.user.findById(thisUser.id).then(function(user){
                         user.name = req.body.name;
                         user.email =req.body.email;
@@ -60,15 +58,11 @@ router.post("/edit", function(req, res){
                         // console.log("***********************",req.body.chef)
                         user.isChef = req.body.chef;
                         user.save().then(function(user){
-                            if (user.isChef === true){
                                  db.chef.findOrCreate({
                                 where: {userId: thisUser.id}
                             }).spread(function(chef, created){
                                     res.redirect('/users/edit');
                                 });
-                            }else {
-                                    res.redirect('/users/edit');
-                                }
                                 });
                     });
          }
