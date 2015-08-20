@@ -1,9 +1,24 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var plate = sequelize.define('plate', {
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    photo: DataTypes.STRING,
+    name: {
+     type: DataTypes.STRING,
+     validate: {
+       notEmpty: true
+     }
+   },
+    description: {
+     type: DataTypes.STRING,
+     validate: {
+       notEmpty: true
+     }
+   },
+    photo: {
+     type: DataTypes.STRING,
+     validate: {
+       notEmpty: true
+     }
+   },
     deal: DataTypes.STRING,
     chefId: DataTypes.INTEGER
   }, {

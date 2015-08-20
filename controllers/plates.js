@@ -9,6 +9,9 @@ var twilio = require('twilio');
 
 // View Today's Plates
 router.get("/new", function(req, res){
+  db.plate.find({
+    where: {}
+  })
         res.render('plates/new');
 });
 
@@ -42,12 +45,76 @@ router.get("/trending", function(req, res){
 
 // View Plates From Favorited Chefs
 router.get("/mychefs", function(req, res){
-        res.render('plates/following');
+// db.chef.findAll({
+//   include: [{
+//         model: user,
+//         where:  {userId: req.user.id}
+//     }]
+//   }).then(function(chefsUsers){
+//   console.log('************chefsUsers',chefsUsers)
+// })
+
+// db.user.find({
+//   where:{id:req.currentUser.id},
+//   include:[{
+//     model:db.chef,
+//     include:[{
+//       model:db.user,
+//       as:'patrons'
+//     }]
+//   }]
+// }).then(function(user){
+//     res.send(user.chef.patrons)
+//   })
+
+// db.plate.findById(1).then(function(plate){
+//   db.chef.find({
+//     where: {id: plate.chefId},
+//        include:[{
+//       model:db.user,
+//       as:'patrons'
+//        }]
+// }).then(function(chef){
+//     res.send(chef.patrons)
+
+//   })
+// })
+
+db.plate.findById(1).then(function(plate){
+  db.chef.find({
+    where: {id: plate.chefId},
+       include:[db.user]
+}).then(function(chef){
+    chef.getPatrons().then(function(patrons) {
+      res.send(patrons);
+    })
+  })
+})
+
+
+  // db.chefsUsers.findAll({
+  //   include: [db.user],
+  //   where: {userId: req.currentUser.id}
+  // }).then(function(chefsUsers){
+  //   res.send(chefsUsers)
+  // })
+
+  // db.user.findById(req.user.id).then(function(user){
+  //   console.log('****************user',user)
+  //   db.chefsUsers({
+  //     where: {userId: user.id}
+  //   })
+  //   })
+  // // })
+  //       res.render('plates/following');
 });
 
-// View Individual Plate -- This will not work until we pass information (params :id) in.
+// View Individual Plate
 router.get("/:id/show", function(req, res){
-        res.render('plates/show');
+  var id = req.params.id
+  db.plate.findById(id).then(function(plate){
+            res.render('plates/show', {myPlate: plate});
+          });
 });
 
 module.exports = router;
