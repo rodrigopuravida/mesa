@@ -28,7 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req,res,next){
-  req.session.user = 8;
+  // req.session.user = 8;
   if(req.session.user){
     db.user.findById(req.session.user).then(function(user){
     req.currentUser = user
@@ -134,4 +134,4 @@ app.use('/chefs',require('./controllers/chefs.js'));
 app.use('/plates',require('./controllers/plates.js'));
 
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
