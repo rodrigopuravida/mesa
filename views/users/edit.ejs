@@ -7,12 +7,20 @@
                         <input type="text" class="form-control" name="name" value="<%= user.name %>">
                         <input type="text" class="form-control" name="email" value="<%= user.email %>">
                         <input type="text" class="form-control" name="phone" value="<%= user.phone %>">
-                        <input type="radio" name="chef" value=true>chef<br>
+                            <% if(user.isChef === true) { %>
+                                        <p>You are currently a chef. Want to change?</p>
+                             <% } else  { %>
+                                        <p>You are currently a patron.Want to change?</p>
+                             <% } %>
+                        <select name='chef'>
+                                <option value="true">I'm a chef</option>
+                                <option value="false">I just want to eat</option>
+                </select>
                 <% if(mychef.user) { %>
-                        <input type="text" class="form-control" name="restaurant" value="<%= user.restaurant %>">
-                        <input type="text" class="form-control" name="location" value="<%= user.location %>">
-                        <input type="text" class="form-control" name="bio" value="<%= user.bio %>">
-                        <input type="text" class="form-control" name="photo" value="<%= user.photo %>">
+                        <input type="text" class="form-control" name="restaurant" value="<%= mychef.restaurant %>">
+                        <input type="text" class="form-control" name="location" value="<%= mychef.location %>">
+                        <input type="text" class="form-control" name="bio" value="<%= mychef.bio %>">
+                        <input type="text" class="form-control" name="photo" value="<%= mychef.photo %>">
                 <% } %>
         </div>
         <button type="submit" class="btn btn-default">update your profile</button>
