@@ -9,6 +9,17 @@ router.get('/index', function(req, res){
         res.render('users/index')
 })
 
+// User Show
+router.get("/show", function(req, res) {
+    db.user.find({
+        where: {id: req.currentUser.id},
+        include: [db.chef]
+    }).then(function(user) {
+        res.render('users/show', {user:user})
+
+    });
+});
+
 // Edit User Page
 router.get("/edit", function(req, res){
         thisUser = req.user

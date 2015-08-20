@@ -12,7 +12,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 
 var NODE_ENV = process.env.NODE_ENV || 'development';
-var BASE_URL =  (NODE_ENV === 'production') ? 'https://enlamesa.herokuapps.com' : 'http://localhost:3000';
+var BASE_URL =  (NODE_ENV === 'production') ? 'https://enlamesa.herokuapp.com' : 'http://localhost:3000';
 
 // Middleware
 app.set('view engine', 'ejs');
