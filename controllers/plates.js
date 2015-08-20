@@ -9,104 +9,30 @@ var twilio = require('twilio');
 
 // View Today's Plates
 router.get("/new", function(req, res){
-  db.plate.find({
-    where: {}
+  db.plate.findAll().then(function(plates){
+     res.render('plates/new', {plates: plates});
   })
-        res.render('plates/new');
 });
 
-
-//Test Twilio Route
-router.get("/test", function(req, res) {
-
-console.log('I am in test mode');
-
-  var accountSid = process.env.TWILIO_ACCOUNT_SID;
-var authToken = process.env.TWILIO_AUTH_TOKEN;
-
-var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-client.messages.create({
-  to: "2062146817",
-  from: "+13852824298",
-  body: "MESA Special of the Week from Bobby Flay",
-  mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1439833856/v8psjfasvnpzw9atlpjl.jpg",
-}, function(err, message) {
-  console.log(message, err);
-});
-
-res.render('plates/new');
-
-});
 
 // View Trending Plates
-router.get("/trending", function(req, res){
-        res.render('plates/trending');
-});
+// router.get("/trending", function(req, res){
+//         res.render('plates/trending');
+// });
 
 // View Plates From Favorited Chefs
 router.get("/mychefs", function(req, res){
-// db.chef.findAll({
-//   include: [{
-//         model: user,
-//         where:  {userId: req.user.id}
-//     }]
-//   }).then(function(chefsUsers){
-//   console.log('************chefsUsers',chefsUsers)
-// })
-
-// db.user.find({
-//   where:{id:req.currentUser.id},
-//   include:[{
-//     model:db.chef,
-//     include:[{
-//       model:db.user,
-//       as:'patrons'
-//     }]
-//   }]
-// }).then(function(user){
-//     res.send(user.chef.patrons)
-//   })
-
-// db.plate.findById(1).then(function(plate){
-//   db.chef.find({
-//     where: {id: plate.chefId},
-//        include:[{
-//       model:db.user,
-//       as:'patrons'
-//        }]
-// }).then(function(chef){
-//     res.send(chef.patrons)
-
-//   })
-// })
-
-db.plate.findById(1).then(function(plate){
-  db.chef.find({
-    where: {id: plate.chefId},
-       include:[db.user]
-}).then(function(chef){
-    chef.getPatrons().then(function(patrons) {
-      res.send(patrons);
+  db.user.find({
+    where: {id: req.currentUser.id}
+  }).then(function(user) {
+    user.getChefs({include: [db.plate]}).then(function(chefs){
+    plates = [];
+    chefs.forEach(function(chef) {
+      plates.push(chef.plates[0]);
+    });
+    res.render('plates/mychefs', {plates: plates})
     })
   })
-})
-
-
-  // db.chefsUsers.findAll({
-  //   include: [db.user],
-  //   where: {userId: req.currentUser.id}
-  // }).then(function(chefsUsers){
-  //   res.send(chefsUsers)
-  // })
-
-  // db.user.findById(req.user.id).then(function(user){
-  //   console.log('****************user',user)
-  //   db.chefsUsers({
-  //     where: {userId: user.id}
-  //   })
-  //   })
-  // // })
-  //       res.render('plates/following');
 });
 
 // View Individual Plate
@@ -120,7 +46,7 @@ router.get("/:id/show", function(req, res){
 //Twilio Post
 router.post("/:id/show", function(req, res){
  var id = req.params.id
- db.plate.findById(1).then(function(plate){
+ db.plate.findById(id).then(function(plate){
  db.chef.find({
    where: {id: plate.chefId},
       include:[db.user]

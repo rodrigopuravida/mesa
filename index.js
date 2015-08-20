@@ -10,7 +10,9 @@ var db = require('./models');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
-var BASE_URL =  'http://localhost:3000';
+
+var NODE_ENV = process.env.NODE_ENV || 'development';
+var BASE_URL =  (NODE_ENV === 'production') ? 'https://enlamesa.herokuapps.com' : 'http://localhost:3000';
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -28,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req,res,next){
-  // req.session.user = 8;
+  req.session.user = 6;
   if(req.session.user){
     db.user.findById(req.session.user).then(function(user){
     req.currentUser = user
