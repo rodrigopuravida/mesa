@@ -5,79 +5,79 @@ var db = require("../models");
 var session = require('express-session');
 var flash = require('connect-flash');
 
-// View Login Page
-router.get("/login", function(req, res){
-        res.render('users/login');
+router.get('/index', function(req, res){
+        res.render('users/index')
+})
+
+// Edit User Page
+router.get("/edit", function(req, res){
+        thisUser = req.user
+        if (thisUser.isChef === true){
+                db.chef.find({
+                        where: {userId: thisUser.id},
+                        include: [db.user]
+                }).then(function(chef){
+                        res.render('users/edit', {mychef: chef});
+                        // console.log('*************************chef',chef)
+                });
+        } else {
+            db.user.findById(thisUser.id).then(function(user){
+                       res.render('users/edit', {mychef: user});
+                       // console.log('********************user',user)
+                   });
+        }
+        // res.redirect('/')
 });
 
-// // View Signup Page
-// router.get("/signup", function(req, res){
-//         res.render('users/signup');
-// });
+// Edit User Page Post
+router.post("/edit", function(req, res){
+        thisUser = req.user
+        if (thisUser.isChef === true){
+                db.chef.find({
+                        where: {userId: thisUser.id},
+                        include: [db.user]
+                }).then(function(chef){
+                        chef.user.name = req.body.name;
+                        chef.user.email =req.body.email;
+                        chef.user.phone = req.body.phone;
+                        chef.user.isChef =req.body.chef;
+                        chef.restaurant = req.body.restaurant;
+                        chef.location = req.body.location;
+                        chef.bio = req.body.bio;
+                        chef.photo = req.body.photo;
+                        chef.save().then(function(chef){
+                                chef.user.save().then(function(chef){
+                                          res.redirect('/');
+                                });
+                        });
+                });
+        } else if (thisUser.isChef === null) {
+            // console.log("**********************this user id", thisUser.id)
+              db.user.findById(thisUser.id).then(function(user){
+                        user.name = req.body.name;
+                        user.email =req.body.email;
+                        user.phone = req.body.phone;
+                        // console.log("***********************",req.body.chef)
+                        user.isChef = req.body.chef;
+                        user.save().then(function(user){
+                            if (user.isChef === true){
+                                 db.chef.findOrCreate({
+                                where: {userId: thisUser.id}
+                            }).spread(function(chef, created){
+                                    res.redirect('/users/edit');
+                                });
+                            }else {
+                                    res.redirect('/users/edit');
+                                }
+                                });
+                    });
+         }
 
-// // Post Signup
-// router.post("/signup", function(req, res){
-//         db.user.create({
-//             email: req.body.email,
-//             password: req.body.password,
-//             phone: req.body.phone
-//         });
-//         res.redirect('login');
-// });
+        // res.redirect('/')
+});
 
+ // author.createPost({title: req.body.title, body: req.body.body}).then(function(post) {
+ //      res.redirect('/posts/' + post.id);
 
-// router.use(session({
-//  secret:'hdkfjhsdkhfksdhfhdpfhpsdkfhskdjfh',
-//  resave: false,
-//  saveUninitialized: true
-// }));
-// router.use(flash());
-// router.use(function(req,res,next){
-
-//  if(req.session.patron){
-//    db.patron.findById(req.session.patron).then(function(patron){
-//      req.currentPatron = patron;
-//      next();
-//    });
-
-//  }else{
-//    req.currentPatron = false;
-//    next();
-//  }
-// });
-// router.use(function(req,res,next){
-//  res.locals.currentPatron = req.currentPatron;
-//  res.locals.alerts = req.flash();
-//  next();
-// });
-
-
-
-
-
-// // Post Login
-// router.post("/login", function(req, res){
-
-//              db.patron.authenticate(req.body.email,req.body.password,function(err,patron){
-//                 if(err){
-//                         res.send(err);
-//                 }else if(patron){
-//                         req.session.patron = patron.id;
-//                         req.flash('success','Welcome patron.');
-//                         res.redirect('/plates/new');
-//                 }else{
-//                         req.flash('danger',"Sorry, we don't recognize that username and/or password");
-//                         res.redirect('login');
-//                 }
-//                 });
-
-// });
-
-// // Logout
-// router.get("/logout", function(req, res){
-//         req.flash('info','Thanks, patron. Until we dine again!.');
-//           req.session.patron = false;
-//           res.redirect('/');
-// });
 
 module.exports = router;
