@@ -25,44 +25,39 @@ router.get("/:id/show", function(req, res){
       });
 });
 
-// Follow Chef
+// Follow Or Unfollow Chef
 router.post("/:id/show", function(req, res){
-  // if (patron){
-  // db.patron.findOrCreate({
-  //   where: {id: req.session.patron}
-  // }).spread(function(patron, created){
-  //   db.chef.findById({
-  //     where: {id: req.params.id}
-  // }).then(function(chef){
-  //     db.chef.findById({ where: {id: req.params.id}
-  // }).then(function(chef) {
-  //   chef.addPatron(patron).then(function(follow){
-  //     console.log('Following Chef')
-  //   })
-  //   res.render('chefs/:id/show', {mychef: chef});
-  // } else {
-     res.render('chefs/:id/show', {mychef: chef});
-  // }
+if (req.body.toggle === 'follow'){
+db.user.find({
+  where: {id: req.user.id}
+}).then(function(user){
+  db.chef.find({
+    where: {id: req.params.id}
+}).then(function(chef){
+    chef.addUser(user).then(function(follow){
+      console.log('Following Chef')
+    });
+  });
+res.redirect('/users/index');
 });
-
-// Unfollow Chef
-router.post("/:id/show", function(req, res){
-  // if (patron){
-  // db.patron.findOrCreate({
-  //   where: {id: req.session.patron}
-  // }).spread(function(patron, created){
-  //   db.chef.findById({
-  //     where: {id: req.params.id}
-  // }).then(function(chef))})
-  //   db.chef.findById({ where: {id: req.params.id}
-  // }).then(function(chef) {
-  //   chef.removePatron(patron).then(function(unfollow){
-  //     console.log('No Longer Following Chef')
-  //   })
-  //   res.render('chefs/:id/show', {mychef: chef});
-  // } else {
-     res.render('chefs/:id/show', {mychef: chef});
-  // }
+console.log('yay following')
+} else if  (req.body.toggle === 'unfollow'){
+db.user.find({
+  where: {id: req.user.id}
+}).then(function(user){
+  db.chef.find({
+    where: {id: req.params.id}
+}).then(function(chef){
+    chef.removeUser(user).then(function(follow){
+      console.log('Following Chef')
+    });
+  });
+res.redirect('/users/index');
+});
+console.log('boo unfollowing')
+} else {
+  res.redirect('/users/index')
+}
 });
 
 // List All of Chef's Plates

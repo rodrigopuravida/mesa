@@ -1,0 +1,21 @@
+<h2>Edit User Page</h2>
+
+<form action="/users/edit" method="POST" role="form">
+        <div class="form-group">
+                <label for="">Please update us!</label>
+                <% var user = mychef.user ? mychef.user : mychef %>
+                        <input type="text" class="form-control" name="name" value="<%= user.name %>">
+                        <input type="text" class="form-control" name="email" value="<%= user.email %>">
+                        <input type="text" class="form-control" name="phone" value="<%= user.phone %>">
+                        <input type="radio" name="chef" value=true>chef<br>
+                <% if(mychef.user) { %>
+                        <input type="text" class="form-control" name="restaurant" value="<%= user.restaurant %>">
+                        <input type="text" class="form-control" name="location" value="<%= user.location %>">
+                        <input type="text" class="form-control" name="bio" value="<%= user.bio %>">
+                        <input type="text" class="form-control" name="photo" value="<%= user.photo %>">
+                <% } %>
+        </div>
+        <button type="submit" class="btn btn-default">update your profile</button>
+</form>
+
+

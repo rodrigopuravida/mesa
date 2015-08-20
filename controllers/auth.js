@@ -52,7 +52,7 @@ router.post('/login',function(req,res){
        });
      }else{
        req.flash('danger',info.message || 'Unknown error.');
-       res.redirect('/atuh/login');
+       res.redirect('/auth/login');
      }
    }
  )(req,res);

@@ -5,5 +5,14 @@
 <p>Restaurant: <%= chef.restaurant %></p>
 <p>Location: <%= chef.location %></p>
 <p>Bio: <%= chef.bio%></p>
+<%= chef.id %>
 
-
+<form action="/chefs/<%= chef.id %>/show" method="POST" role="form">
+        <select name='toggle'>
+                <option value="follow">favorite</option>
+                <option value="unfollow">unfollow</option>
+        </select>
+                        <button type="submit" class="btn btn-default">button</button>
+<!--         <button name='follow' type="submit" class="btn btn-default" >favorite</button>
+        <button name='unfollow' type="submit" class="btn btn-default" >unfollow</button> -->
+</form>
