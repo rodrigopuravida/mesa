@@ -1,31 +1,64 @@
 body{
 }
 .mainbody{
-        margin: 50px auto;
+        margin: 75px auto;
         height: 1500px;
+        font-family: 'Lato', sans-serif;
+}
+#logo{
+        display:inline;
+        /*margin-right: 10px;*/
+
 }
 .mesatxt{
         text-align: center;
-        background-color: white;
+        margin-top: 0 auto;
+        background-color: rgba(255,255,255,.7);
+        /*background-color: transparent;*/
+        /*background-color: rgba(255,255,255,.85);*/
+        /*opacity:0.4;*/
+        /*background-color: white;*/
         height: 250px;
 }
+.parent {
+  opacity: 0;
+}
 .imgdivs{
-        margin: 0 auto;
-        height: 500px;
-        width: 900px;
+       /* margin: 0 auto;*/
+        height: 750px;
+       /* width: 900px;*/
+        background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background-size:contain;
+        /*background-size:contain;*/
         background-position:center;
 }
+.navbar-default {
+  background-color: rgba(255,255,255,.85);
+}
+
+div.navbar-header a.navbar-brand {
+  color: #222222;
+  padding-top: 14px;
+  padding-left: ;
+}
+
+div.navbar-header a.navbar-brand:hover {
+  color: #F77857;
+  padding-top: 14px;
+}
+.navbar-brand-img{
+  background-color: rgba(255,255,255,.85);
+}
 #div1{
-        background-image: url('http://lorempixel.com/output/food-q-c-1090-530-1.jpg');
+        background-image: url('http://blogs-images.forbes.com/alexkonrad/files/2015/04/default.png');
 }
 #div2{
-        background-image: url('http://lorempixel.com/output/food-q-c-1090-530-8.jpg');
+        background-image: url('http://sandiegofoodfinds.com/wp-content/uploads/2013/01/Chef-Simon-Saltbox.jpg');
 }
 #div3{
-        background-image: url('http://lorempixel.com/output/food-q-c-1090-530-9.jpg');
+        background-image: url('http://res.cloudinary.com/sagacity/image/upload/c_crop,h_1180,w_900,x_0,y_25/c_scale,w_1080/v1414533886/loulay-chef_gh3dhn.jpg');
+        /*http://i.ytimg.com/vi/bVAQm0u55Z8/maxresdefault.jpg*/
 }
 #signupdiv{
         display: inline-block;
