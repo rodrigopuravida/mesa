@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
+        // models.chef.belongsToMany(models.user, {through: 'chefsUsers'});
         models.chef.belongsTo(models.user);
         models.chef.hasMany(models.plate);
         models.chef.belongsToMany(models.user, {through: 'chefsUsers'});
