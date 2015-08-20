@@ -60,12 +60,16 @@ router.post("/edit", function(req, res){
                         // console.log("***********************",req.body.chef)
                         user.isChef = req.body.chef;
                         user.save().then(function(user){
-                            db.chef.findOrCreate({
+                            if (user.isChef === true){
+                                 db.chef.findOrCreate({
                                 where: {userId: thisUser.id}
                             }).spread(function(chef, created){
                                     res.redirect('/users/edit');
                                 });
-                            });
+                            }else {
+                                    res.redirect('/users/edit');
+                                }
+                                });
                     });
          }
 
