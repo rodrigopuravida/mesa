@@ -1,10 +1,9 @@
-<h2 style='text-align: center'>Newest Plates From Our Chefs</h2>
+<h2 style='text-align: center; margin-bottom: 30px'>newest plates from our chefs</h2>
 
 <%taco.forEach(function(plate) { %>
-<div>
-        <img class='platephoto' src=<%= plate.photo%>>
-        <h2><a href='/plates/<%= plate.id%>/show'><%= plate.name %></a></h2>
-        <p><%= plate.description %></p>
-        <p><%= plate.deal %></p>
-</div>
+        <div class='well foodcard'>
+                <img class='platephoto' src=<%= plate.photo%>>
+                <h3><a href='/plates/<%= plate.id%>/show'><%= plate.name %></a></h3>
+                <p><%= plate.description %></p>
+        </div>
 <% }); %>
