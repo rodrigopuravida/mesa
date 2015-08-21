@@ -18,17 +18,16 @@ router.get("/new", function(req, res){
 
 // View Plates From Favorited Chefs
 router.get("/mychefs", function(req, res){
-  if(req.currentUser){
-
+  if(req.user){
   db.user.find({
-    where: {id: req.currentUser.id}
+    where: {id: req.user.id}
   }).then(function(user) {
     user.getChefs({include: [db.plate]}).then(function(chefs){
     plates = [];
     chefs.forEach(function(chef) {
       plates.push(chef.plates[0]);
     });
-    res.render('plates/mychefs', {plates: plates})
+    res.render('plates/following', {plates: plates})
     })
   })
 }else{

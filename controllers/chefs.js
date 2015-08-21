@@ -20,7 +20,7 @@ router.get("/", function(req, res){
 router.get("/:id/show", function(req, res){
     db.chef.find({
     where: {id: req.params.id},
-    include : [db.user]
+    include : [db.user, db.plate]
   }).then(function(chef) {
     res.render('chefs/show', {chef: chef});
       });

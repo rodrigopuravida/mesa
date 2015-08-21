@@ -6,6 +6,12 @@
 <p>Location: <%= chef.location %></p>
 <p>Bio: <%= chef.bio%></p>
 
+<% if (chef.plate) { %>
+<%chef.plate.forEach(function(plate) { %>
+<%=plate  %>
+<% }) }%>
+
+plate: <%= chef.plate  %>
 <form action="/chefs/<%= chef.id %>/show" method="POST" role="form">
         <select name='toggle'>
                 <option value="follow">favorite</option>

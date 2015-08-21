@@ -22,19 +22,53 @@ body{
   width: 300px;
   border-radius: 50%;
 }
+.chefphoto{
+  height: 375px;
+  width: 375px;
+  border-radius: 50%;
+}
 .platephoto{
   height: 250px;
-  width: 300px;
+  width: 375px;
 }
 .well{
   background-color: white;
+  display: inline-table;
+  padding: 0px;
 }
-.chefwell{
-/*  height: 300px;
-  width: 400px;*/
-/*  display: inline;*/
-
+.foodcard{
+  width: 375px;
+  height: 375px;
+  text-align: center;
+  /*border-style: solid;
+  border-color: #B9B9B9;
+  border-width: 3px;*/
+  margin-bottom: 10px;
+  border-radius: 2px
 }
+.chefcard{
+  width: 375px;
+  height: 500px;
+  text-align: center;
+  /*border-style: solid;
+  border-color: #B9B9B9;
+  border-width: 3px;*/
+  margin-bottom: 10px;
+  border-radius: 2px
+}
+.{
+  width: 375px;
+  height: 375px;
+  text-align: center;
+  /*border-style: solid;
+  border-color: #B9B9B9;
+  border-width: 3px;*/
+  margin-bottom: 10px;
+  border-radius: 2px
+}
+/*.foodcard img {
+  margin-top: 20px;
+}*/
 #logindiv p {
   display: inline;
   margin-right: 15px;
