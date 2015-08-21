@@ -39,8 +39,8 @@
                         <span class="icon-bar"></span>
                 </button>
                 <div id='inline'>
-                <img style="float:left" src="/images/mesa1.png">
-                <a class="navbar-brand" href="/">mesa</a>
+                <a href='/about'><img id='logo' style="float:left" src="/images/mesa1.png"></a>
+                <a class="navbar-brand" href="/"><h2>mesa</h2></a>
                 </div>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -66,7 +66,7 @@
                         </li> -->
                         <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plates<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu navitems">
                                         <li><a href="/plates/new">New</a></li>
                                         <li><a href="/plates/mychefs">From My Chefs</a></li>
                                 </ul>
@@ -75,12 +75,12 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser) {  %>
-                        <li><a href="/auth/login">Login</a></li>
+                        <li style='margin-top: 12px'><a href="/auth/login">Login</a></li>
                     <% }  %>
-                    <div id="logindiv">
+                    <div style='margin-top: 25px' id="logindiv">
                     <% if(currentUser) {  %>
-                        <p><%= currentUser.email %></p>
-                        <p><a href="/auth/logout">Logout</a></p>
+                        <p><a href="/users/edit"><%= currentUser.name%></a></p>
+                        <p ><a href="/auth/logout">Logout</a></p>
                     <% }  %>
                       </div>
                 </ul>
@@ -97,14 +97,14 @@
 <% } %>
     <%- body %>
 </div>
-         <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+       <!--   <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
          <div class="container">
              <div class="collapse navbar-collapse navbar-ex1-collapse">
                  <ul class="nav navbar-nav">
                  </ul>
              </div>
          </div>
-         </nav>
+         </nav> -->
 </div>
 </body>
 </html>

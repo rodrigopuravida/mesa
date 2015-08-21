@@ -129,6 +129,12 @@ app.get('/', function(req, res){
          res.render('index', {currentUser: req.user});
 });
 
+// About
+app.get('/about', function(req, res){
+         res.render('about', {currentUser: req.user});
+});
+
+
 //Controllers
 app.use('/auth', require('./controllers/auth.js'));
 app.use('/users', require('./controllers/users.js'));
