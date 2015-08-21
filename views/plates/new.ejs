@@ -1,8 +1,10 @@
-<h2>New Plates</h2>
+<h2 style='text-align: center'>Newest Plates From Our Chefs</h2>
 
-<% plates.forEach(function(plate) { %>
-<div class="well">
+<%taco.forEach(function(plate) { %>
+<div>
+        <img class='platephoto' src=<%= plate.photo%>>
         <h2><a href='/plates/<%= plate.id%>/show'><%= plate.name %></a></h2>
-        <h2><%= plate.description %></h2>
+        <p><%= plate.description %></p>
+        <p><%= plate.deal %></p>
 </div>
 <% }); %>

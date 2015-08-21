@@ -8,23 +8,40 @@ body{
 #buffer{
   min-height: 125px;
 }
-#logo{
-        display:inline;
-        /*margin-right: 10px;*/
-}
 #logindiv {
   margin-top:  15px;
+}
+#inline *{
+  display:inline;
+}
+#inline img{
+  margin-right: 15px;
 }
 #chefphoto{
   height: 300px;
   width: 300px;
   border-radius: 50%;
 }
+.platephoto{
+  height: 250px;
+  width: 300px;
+}
+.well{
+  background-color: white;
+}
+.chefwell{
+/*  height: 300px;
+  width: 400px;*/
+/*  display: inline;*/
+
+}
 #logindiv p {
   display: inline;
   margin-right: 15px;
   }
-
+#fblogin{
+  margin-top: 5px;
+}
 .mesatxt{
         text-align: center;
         margin-top: 0 auto;
@@ -51,13 +68,11 @@ body{
 .navbar-default {
   background-color: rgba(255,255,255,.85);
 }
-
 div.navbar-header a.navbar-brand {
   color: #222222;
   padding-top: 14px;
   padding-left: ;
 }
-
 div.navbar-header a.navbar-brand:hover {
   color: #F77857;
   padding-top: 14px;
