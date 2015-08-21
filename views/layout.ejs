@@ -12,6 +12,17 @@
         <script src="/js/jquery-2.0.2.js"></script>
         <script src="/js/jquery.stellar.min.js"></script>
         <script src="/js/script.js"></script>
+        <SCRIPT language=Javascript>
+        function isNumberKey(evt)
+        {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+        }
+
+   </SCRIPT>
 
         <link rel='stylesheet' media='screen' href='/css/style.css'>
         <title>mesa</title>
@@ -31,12 +42,12 @@
                 <a class="navbar-brand" href="/">mesa</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <form class="navbar-form navbar-left" role="search">
+                <!-- <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                                 <input type="text" class="form-control" placeholder="find chefs">
                         </div>
                         <button type="submit" class="btn btn-default"><i class='glyphicon glyphicon-search'></i></button>
-                </form>
+                </form> -->
                 <a href="/chefs">All Chefs</a>
                 <ul class="nav navbar-nav">
                 <li class="dropdown">
@@ -56,8 +67,13 @@
                         </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/auth/login">Login</a></li>
-                    <li><a href="/auth/logout">Logout</a></li>
+                    <% if(!currentUser) {  %>
+                        <li><a href="/auth/login">Login</a></li>
+                    <% }  %>
+                    <% if(currentUser) {  %>
+                        <li><%= currentUser.email %></li>
+                        <li><a href="/auth/logout">Logout</a></li>
+                    <% }  %>
                 </ul>
         </div>
 </div>

@@ -1,3 +1,12 @@
 <h2>User Profile</h2>
+
+
 <%= user.name  %>
+<%= user.email  %>
+<%= user.phone  %>
+<% if (user.chef){ %>
 <%= user.chef.restaurant %>
+<%= user.chef.bio  %>
+<%= user.chef.photo  %>
+<%= user.chef.location  %>
+<% } %>

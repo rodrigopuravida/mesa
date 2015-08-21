@@ -21,12 +21,13 @@ module.exports = function(sequelize, DataTypes) {
        notEmpty: true
      }
    },
-    phone: {
-     type: DataTypes.STRING,
-     validate: {
-       notEmpty: true
-     }
-   },
+    phone:{
+      type: DataTypes.STRING,
+      validate: {
+        len: [10]
+      }
+    },
+
     isChef: DataTypes.BOOLEAN
   }, {
     classMethods: {
