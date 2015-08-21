@@ -6,7 +6,7 @@
                 <% var user = mychef.user ? mychef.user : mychef %>
                         <input type="text" class="form-control" name="name" value="<%= user.name %>">
                         <input type="text" class="form-control" name="email" value="<%= user.email %>">
-                        <input type="text" class="form-control" name="phone" value="<%= user.phone %>" onkeypress="return isNumberKey(event)">
+                        <input type="text" class="form-control" name="phone" placeholder='please provide a phone number' value="<%= user.phone %>" onkeypress="return isNumberKey(event)">
                         <!-- <INPUT id="txtChar"  type="text" name="txtChar"> -->
                         <div style='text-align: center'>
                         <select name='chef'>
@@ -23,10 +23,9 @@
                 </select>
                 </div>
                 <% if(mychef.user) { %>
-                        <input type="text" class="form-control" name="restaurant" value="<%= mychef.restaurant %>">
-                        <input type="text" class="form-control" name="location" value="<%= mychef.location %>">
-                        <input type="text" class="form-control" name="bio" value="<%= mychef.bio %>">
-                        <input type="text" class="form-control" name="photo" value="<%= mychef.photo %>">
+                        <input type="text" class="form-control" name="restaurant" placeholder='your restauant name' value="<%= mychef.restaurant %>">
+                        <input type="text" class="form-control" name="location" placeholder='your restaurant location' value="<%= mychef.location %>">
+                        <input type="text" class="form-control" name="bio" placeholder='a little about you' value="<%= mychef.bio %>">
                 <% } %>
         </div>
     <div style='text-align: center'>

@@ -18,13 +18,19 @@ router.get("/", function(req, res){
 
 // View Chef Page
 router.get("/:id/show", function(req, res){
+  if(req.user){
     db.chef.find({
     where: {id: req.params.id},
     include : [db.user, db.plate]
   }).then(function(chef) {
     res.render('chefs/show', {chef: chef, thisUser: req.session.user});
       });
+} else{
+    req.flash("danger", "Please login to view a chef profile.");
+    res.redirect('/auth/login');
+}
 });
+
 
 // Follow Or Unfollow Chef
 router.post("/:id/show", function(req, res){
