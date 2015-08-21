@@ -1,26 +1,27 @@
-<h2>Edit User Page</h2>
-
+<h2 style='text-align: center'>please keep us up to date</h2>
+<div class="col-md-6 col-md-offset-3">
 <form action="/users/edit" method="POST" role="form">
         <div class="form-group">
-                <label for="">Please update us!</label>
+
                 <% var user = mychef.user ? mychef.user : mychef %>
                         <input type="text" class="form-control" name="name" value="<%= user.name %>">
                         <input type="text" class="form-control" name="email" value="<%= user.email %>">
                         <input type="text" class="form-control" name="phone" value="<%= user.phone %>" onkeypress="return isNumberKey(event)">
                         <!-- <INPUT id="txtChar"  type="text" name="txtChar"> -->
-
+                        <div style='text-align: center'>
                         <select name='chef'>
                                 <option value="<%= user.isChef  %>">
                                                             <% if(user.isChef === true) { %>
-                                        <p>You are currently a chef. Want to change?</p>
+                                        <p>You're a chef, want to change?</p>
                              <% } else  { %>
-                                        <p>You are currently a patron.Want to change?</p>
+                                        <p>you're a patron, want to change?</p>
                              <% } %>
 
                                 </option>
-                                <option value="true">I'm a chef</option>
-                                <option value="false">I just want to eat</option>
+                                <option value="true">I'm a chef.</option>
+                                <option value="false">I just want to eat.</option>
                 </select>
+                </div>
                 <% if(mychef.user) { %>
                         <input type="text" class="form-control" name="restaurant" value="<%= mychef.restaurant %>">
                         <input type="text" class="form-control" name="location" value="<%= mychef.location %>">
@@ -28,7 +29,9 @@
                         <input type="text" class="form-control" name="photo" value="<%= mychef.photo %>">
                 <% } %>
         </div>
+    <div style='text-align: center'>
         <button type="submit" class="btn btn-default">update your profile</button>
+        </div>
 </form>
-
+</div>
 

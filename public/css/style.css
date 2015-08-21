@@ -1,8 +1,21 @@
 body{
+/*     background-color: #9AABD1;
+     opacity: .5;
+  background-color: rgba(255,255,255,.85);*/
+}
+#bioswrapper{
+  text-align: center;
+}
+#bioswrapper .biodivs{
+  display: inline-block;
+  text-align: center;
+}
+.biodivs{
+  width: 300px;
+  height: 1700px;
 }
 .mainbody{
         margin: 125px auto;
-/*        height: 1500px;*/
         font-family: 'Lato', sans-serif;
 }
 #buffer{
@@ -17,14 +30,20 @@ body{
 #inline img{
   margin-right: 15px;
 }
+#logo{
+  padding: 10px;
+}
+.navitems{
+  color:blue;
+}
 #chefphoto{
   height: 300px;
   width: 300px;
   border-radius: 50%;
 }
-.chefphoto{
-  height: 375px;
-  width: 375px;
+.aboutphoto{
+  height: 300px;
+  width: 300px;
   border-radius: 50%;
 }
 .platephoto{
@@ -46,6 +65,15 @@ body{
   margin-bottom: 10px;
   border-radius: 2px
 }
+.form-group input {
+  margin: 5px;
+}
+#upload{
+text-align: center;
+ }
+ #radio{
+text-align: center;
+ }
 .chefcard{
   width: 375px;
   height: 500px;
@@ -56,19 +84,9 @@ body{
   margin-bottom: 10px;
   border-radius: 2px
 }
-.{
-  width: 375px;
-  height: 375px;
-  text-align: center;
-  /*border-style: solid;
-  border-color: #B9B9B9;
-  border-width: 3px;*/
-  margin-bottom: 10px;
-  border-radius: 2px
+#signupinfo{
+  margin-bottom: 50px;
 }
-/*.foodcard img {
-  margin-top: 20px;
-}*/
 #logindiv p {
   display: inline;
   margin-right: 15px;
@@ -100,7 +118,9 @@ body{
         background-position:center;
 }
 .navbar-default {
+/*    background-color: #9AABD1;*/
   background-color: rgba(255,255,255,.85);
+/*opacity: .4;*/
 }
 div.navbar-header a.navbar-brand {
   color: #222222;

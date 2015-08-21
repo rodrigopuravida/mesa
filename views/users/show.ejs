@@ -1,11 +1,13 @@
-<h2>User Profile</h2>
-
-<%= user.name  %>
-<%= user.email  %>
-<%= user.phone  %>
-<% if (user.chef){ %>
-<%= user.chef.restaurant %>
-<%= user.chef.bio  %>
-<img src="'" + <%= user.chef.photo  %> + "'">
-<%= user.chef.location  %>
-<% } %>
+<div>
+        <% if (user.chef){ %>
+        <img src="'" + <%= user.chef.photo  %> + "'">
+        <% } %>
+        <h3><%= user.name  %></h3>
+        <h4><%= user.email  %></h4>
+        <h4><%= user.phone  %></h4>
+        <% if (user.chef){ %>
+        <h4><%= user.chef.restaurant %></h4>
+        <h4><%= user.chef.bio  %></h4>
+        <h4><%= user.chef.location  %></h4>
+        <% } %>
+</div>
