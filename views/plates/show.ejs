@@ -3,6 +3,7 @@
 <div class='well foodcardbig'>
         <img class='platephotobig' src=<%= myPlate.photo%>>
         <h3><a href='/plates/<%= myPlate.id%>/show'><%= myPlate.name %></a></h3>
+        <h3><a href='/chefs/<%= myPlate.chefId%>/show'><%=myPlate.chef.user.name%></a></h3>
         <p><%= myPlate.description %></p>
 </div>
 

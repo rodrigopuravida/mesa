@@ -44,7 +44,15 @@ router.get("/mychefs", function(req, res){
 router.get("/:id/show", function(req, res){
     if(req.user){
   var id = req.params.id
-  db.plate.findById(id).then(function(plate){
+  db.plate.find({
+    where: {id: id},
+     include:[{
+    model:db.chef,
+    include:[{
+      model:db.user
+    }]
+  }]
+  }).then(function(plate){
     db.user.find({
       where: {id: req.user.id},
       include: [db.chef]
