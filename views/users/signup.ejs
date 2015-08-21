@@ -12,7 +12,23 @@
                 <input type="text" class="form-control" name="restaurant" placeholder="your restaurant name">
                 <input type="text" class="form-control" name="location" placeholder="your restaurant location">
                 <input type="text" class="form-control" name="bio" placeholder="about you">
-                <input type="text" class="form-control" name="photo" placeholder="photo">
+                <a href="#" id="upload_widget_opener">Upload Chef Photo</a>
+                      <script type="text/javascript">
+                      document.getElementById("upload_widget_opener").addEventListener("click", function() {
+
+                      cloudinary.openUploadWidget({ cloud_name: 'dpqunwmnb', upload_preset: 'r7wc50dt'},
+                      function(error, result) {
+                        console.log(result[0]["url"]);
+                        console.log(error, result)
+                        var photoLocation = $('#photo_url');
+                        photoLocation.val(result[0]["url"]);
+
+                      });
+
+                      }, false);
+                      </script>
+                      <input type="text" class="form-control" name="photo" value = '' id = 'photo_url' readonly>
+       <!--          <input type="text" class="form-control" name="photo" placeholder="photo"> -->
         </div>
         <button type="submit" class="btn btn-default">Sign Up</button>
 </form>

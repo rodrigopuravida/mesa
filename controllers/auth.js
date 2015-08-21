@@ -3,7 +3,6 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-
 // Signup Form Route
 router.get('/signup',function(req,res){
    res.render('users/signup');
@@ -33,6 +32,7 @@ router.post('/signup',function(req,res){
       }
     });
 });
+
 
 // Login Route
 router.get('/login',function(req,res){
@@ -90,5 +90,14 @@ router.get('/logout',function(req,res){
    res.redirect('/');
 });
 
+function waitForAllUploads(id,err,image){
+   uploads[id] = image;
+   var ids = Object.keys(uploads);
+   if (ids.length==6){
+     console.log();
+     console.log ('**  uploaded all files ('+ids.join(',')+') to cloudinary');
+     performTransformations();
+   }
+ }
 
 module.exports = router;

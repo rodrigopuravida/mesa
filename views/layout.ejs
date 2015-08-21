@@ -28,7 +28,7 @@
         <title>mesa</title>
 </head>
 <body>
-<div class="container">
+<div id='whole' class="container">
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 <div class="container">
     <div class="navbar-header">
@@ -50,18 +50,22 @@
                 </form> -->
                 <a href="/chefs">All Chefs</a>
                 <ul class="nav navbar-nav">
-                <li class="dropdown">
+        <!--         <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chef<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                   <% if(currentUser) {  %>
+                                          <%= currentUser %>
+                                          <h1>write this</h1>
+
+                                    <% }  %>
                                         <li><a href="/chefs/plates/new">New Plate</a></li>
                                         <li><a href="/chefs/plates/index">My Plates</a></li>
                                 </ul>
-                        </li>
+                        </li> -->
                         <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plates<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                         <li><a href="/plates/new">New</a></li>
-                                        <li><a href="/plates/trending">Trending</a></li>
                                         <li><a href="/plates/mychefs">From My Chefs</a></li>
                                 </ul>
                         </li>
@@ -70,10 +74,12 @@
                     <% if(!currentUser) {  %>
                         <li><a href="/auth/login">Login</a></li>
                     <% }  %>
+                    <div id="logindiv">
                     <% if(currentUser) {  %>
-                        <li><%= currentUser.email %></li>
-                        <li><a href="/auth/logout">Logout</a></li>
+                        <p><%= currentUser.email %></p>
+                        <p><a href="/auth/logout">Logout</a></p>
                     <% }  %>
+                      </div>
                 </ul>
         </div>
 </div>
