@@ -23,4 +23,7 @@ things in life - community with purpose & some damn good food
 
 ![Alt text](https://cloud.githubusercontent.com/assets/9797122/9406838/c4bf9c34-47b8-11e5-85e3-cd7d858a8da0.png)
 
+Technologies used: node.js, express.js, javaScript, twilio api, facebook auth api, cloudinary api, sequelize,
+and postgresql
+
 https://enlamesa.herokuapp.com/
