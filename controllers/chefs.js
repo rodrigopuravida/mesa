@@ -23,7 +23,10 @@ router.get("/:id/show", function(req, res){
     where: {id: req.params.id},
     include : [db.user, db.plate]
   }).then(function(chef) {
-    res.render('chefs/show', {chef: chef, thisUser: req.session.user});
+    // console.log('***********',chef.plate)
+    chef.getPlates().then(function(plates){
+      res.render('chefs/show', {chef: chef, thisUser: req.session.user, plates: plates});
+    });
       });
 } else{
     req.flash("danger", "Please login to view a chef profile.");

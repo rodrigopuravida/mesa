@@ -70,6 +70,20 @@ body{
   margin-bottom: 10px;
   border-radius: 2px
 }
+.foodcardbig{
+  width: 600px;
+  height: 650px;
+  text-align: center;
+  /*border-style: solid;
+  border-color: #B9B9B9;
+  border-width: 3px;*/
+  margin-bottom: 10px;
+  border-radius: 2px
+}
+.platephotobig{
+  height: 550px;
+  width: 650px;
+}
 .form-group input {
   margin: 5px;
 }
