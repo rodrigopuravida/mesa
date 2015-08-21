@@ -1,5 +1,19 @@
-<h2>Show</h2>
-<%=myPlate.name  %>
-<form action="/plates/<%=myPlate.id %>/show" method="POST" role="form">
-        <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div style='text-align: center'>
+
+<div class='well foodcard'>
+        <img class='platephoto' src=<%= myPlate.photo%>>
+        <h3><a href='/plates/<%= myPlate.id%>/show'><%= myPlate.name %></a></h3>
+        <p><%= myPlate.description %></p>
+</div>
+
+<% if (thisUser.isChef) {%>
+<% if (myPlate.chefId  === thisUser.chef .id){ %>
+<div style='text-align: center'>
+        <form action="/plates/<%=myPlate.id %>/show" method="POST" role="form">
+                <button type="submit" class="btn btn-success">send special</button>
+        </form>
+</div>
+<% };  %>
+<% };  %>
+
+</div>
