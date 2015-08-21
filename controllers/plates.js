@@ -25,8 +25,12 @@ router.get("/mychefs", function(req, res){
     user.getChefs({include: [db.plate]}).then(function(chefs){
     plates = [];
     chefs.forEach(function(chef) {
+      if (chef.plates[0]){
       plates.push(chef.plates[0]);
+}
     });
+    console.log('***********',plates)
+    // res.send(plates)
     res.render('plates/following', {plates: plates})
     })
   })

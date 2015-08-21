@@ -22,7 +22,7 @@ router.get("/:id/show", function(req, res){
     where: {id: req.params.id},
     include : [db.user, db.plate]
   }).then(function(chef) {
-    res.render('chefs/show', {chef: chef});
+    res.render('chefs/show', {chef: chef, thisUser: req.session.user});
       });
 });
 

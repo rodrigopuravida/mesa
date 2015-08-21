@@ -64,14 +64,14 @@
                                         <li><a href="/chefs/plates/index">My Plates</a></li>
                                 </ul>
                         </li> -->
-                        <li class="dropdown">
+                        <li  style='margin-top: 12px' class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plates<b class="caret"></b></a>
-                                <ul class="dropdown-menu navitems">
+                                <ul class="dropdown-menu" >
                                         <li><a href="/plates/new">New Plates</a></li>
                                         <li><a href="/plates/mychefs">From My Chefs</a></li>
                                 </ul>
                         </li>
-                        <li><a href="/chefs">All Chefs</a></li>
+                        <li style='margin-top: 12px'><a href="/chefs">All Chefs</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser) {  %>
@@ -88,6 +88,8 @@
 </div>
 </nav>
 <div class="mainbody">
+
+<div style='text-align:center'>
 <% if(typeof alerts !== 'undefined'){ %>
    <% for(key in alerts){ %>
        <% alerts[key].forEach(function(thisMsg){ %>
@@ -95,6 +97,7 @@
        <% }); %>
    <% } %>
 <% } %>
+</div>
     <%- body %>
 </div>
        <!--   <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">

@@ -1,5 +1,6 @@
-<h2>Add A Plate</h2>
+<h2 style='text-align: center'>add a plate</h2>
 
+<div class="col-md-6 col-md-offset-3">
 
 <form action="/chefs/plates/new" method="POST" role="form">
 
@@ -11,8 +12,9 @@
       <input id="dish_photo" type="file" class="file" name="photo">-->
 
       <!--this is cloudinary section-->
-      <a href="#" id="upload_widget_opener">Upload Plate image</a>
-
+      <div style='text-align: center'>
+      <a href="#" id="upload_widget_opener">upload a photo of your special</a>
+</div>
       <script type="text/javascript">
       document.getElementById("upload_widget_opener").addEventListener("click", function() {
 
@@ -32,9 +34,8 @@
       <input type="hidden" class="form-control" name="id" value=<%= currentUser.id %>>
   </div>
 
-
-  <button type="submit" class="btn btn-primary">Submit</button>
+<div style='text-align: center'>
+  <button type="submit" class="btn btn-default">creare your plate</button>
+  </div>
 </form>
-<!--
-<p> Current User <%= currentUser.id %></p>
- -->
+</div>
