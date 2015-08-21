@@ -19,12 +19,7 @@ module.exports = function(sequelize, DataTypes) {
        notEmpty: true
      }
    },
-    photo: {
-     type: DataTypes.STRING,
-     validate: {
-       notEmpty: true
-     }
-   },
+    photo: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {
     classMethods: {
