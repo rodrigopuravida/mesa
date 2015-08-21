@@ -1,15 +1,30 @@
 body{
 }
 .mainbody{
-        margin: 75px auto;
-        height: 1500px;
+        margin: 125px auto;
+/*        height: 1500px;*/
         font-family: 'Lato', sans-serif;
+}
+#buffer{
+  min-height: 125px;
 }
 #logo{
         display:inline;
         /*margin-right: 10px;*/
-
 }
+#logindiv {
+  margin-top:  15px;
+}
+#chefphoto{
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+}
+#logindiv p {
+  display: inline;
+  margin-right: 15px;
+  }
+
 .mesatxt{
         text-align: center;
         margin-top: 0 auto;

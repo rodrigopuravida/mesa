@@ -7,6 +7,6 @@
 <% if (user.chef){ %>
 <%= user.chef.restaurant %>
 <%= user.chef.bio  %>
-<%= user.chef.photo  %>
+<img src="'" + <%= user.chef.photo  %> + "'">
 <%= user.chef.location  %>
 <% } %>

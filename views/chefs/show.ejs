@@ -1,11 +1,10 @@
 <h2>Chef Profile</h2>
 
-<p>Photo: <%= chef.photo%></p>
+<img id='chefphoto' src=<%= chef.photo%>>
 <p>Chef: <%= chef.user.name %></p>
 <p>Restaurant: <%= chef.restaurant %></p>
 <p>Location: <%= chef.location %></p>
 <p>Bio: <%= chef.bio%></p>
-<%= chef.id %>
 
 <form action="/chefs/<%= chef.id %>/show" method="POST" role="form">
         <select name='toggle'>
