@@ -12,12 +12,12 @@ router.get('/index', function(req, res){
 // User Show
 router.get("/show", function(req, res) {
     db.user.find({
-        where: {id: req.currentUser.id},
+        where: {id: req.user.id},
         include: [db.chef]
     }).then(function(user) {
         res.render('users/show', {user:user})
 
-    });
+     });
 });
 
 // Edit User Page

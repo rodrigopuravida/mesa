@@ -35,7 +35,7 @@ db.user.find({
   db.chef.find({
     where: {id: req.params.id}
 }).then(function(chef){
-    chef.addUser(user).then(function(follow){
+    user.addChef(chef).then(function(follow){
       console.log('Following Chef')
     });
   });
@@ -49,8 +49,8 @@ db.user.find({
   db.chef.find({
     where: {id: req.params.id}
 }).then(function(chef){
-    chef.removeUser(user).then(function(follow){
-      console.log('Following Chef')
+    user.removeChef(chef).then(function(unfollow){
+      console.log('no longer Following Chef')
     });
   });
 res.redirect('/users/index');
@@ -59,34 +59,6 @@ console.log('boo unfollowing')
 } else {
   res.redirect('/users/index')
 }
-});
-
-
-router.get("/plates/index", function(req, res){
-
-console.log('I am in test mode');
-
-var accountSid = process.env.TWILIO_ACCOUNT_SID;
-var authToken = process.env.TWILIO_AUTH_TOKEN;
-
-  db.user.findAll().then(function(user){
-    for(var i = 0; i < user.length; i++) {
-
-    console.log(user[i].phone);
-      var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-      client.messages.create({
-
-        to: user[i].phone,
-        from: "+13852824298",
-        body: "MESA Special of the Week from Chef " +  user[1].name,
-        mediaUrl: "http://res.cloudinary.com/dpqunwmnb/image/upload/v1440020189/hmzhh6u9eo8ta926ohaf.jpg",
-      }, function(err, message) {
-        console.log(message.sid, err);
-      });
-    };
-  });
-
-    res.render('plates/index', {chefId:1});
 });
 
 // New Plate For A Chef

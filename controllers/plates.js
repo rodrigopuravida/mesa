@@ -1,19 +1,15 @@
-// var dotenv = require('dotenv');
-// dotenv.load();
 var express = require('express');
 var router = express.Router();
 var request = require('request');
 var db = require("../models");
 var twilio = require('twilio');
 
-
 // View Today's Plates
 router.get("/new", function(req, res){
-  db.plate.findAll().then(function(plates){
-     res.render('plates/new', {plates: plates});
+  db.plate.findAll().then(function(plate){
+     res.render('plates/new', {plates: plate});
   })
 });
-
 
 // View Trending Plates
 // router.get("/trending", function(req, res){
@@ -22,6 +18,8 @@ router.get("/new", function(req, res){
 
 // View Plates From Favorited Chefs
 router.get("/mychefs", function(req, res){
+  if(req.currentUser){
+
   db.user.find({
     where: {id: req.currentUser.id}
   }).then(function(user) {
@@ -33,6 +31,10 @@ router.get("/mychefs", function(req, res){
     res.render('plates/mychefs', {plates: plates})
     })
   })
+}else{
+  req.flash("danger", "Please login to view chefs and see their plates.");
+  res.redirect('/auth/login');
+}
 });
 
 // View Individual Plate
@@ -52,12 +54,11 @@ router.post("/:id/show", function(req, res){
       include:[db.user]
 }).then(function(chef){
    chef.getPatrons().then(function(patrons) {
-    // var phoneNumbers = [];
      for(var i = 0; i < patrons.length; i++) {
        console.log(patrons[i].phone);
        console.log(patrons[i].id);
        console.log(plate.photo);
-
+       if(patrons[i].phone){
        var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
        client.messages.create({
               to: patrons[i].phone,
@@ -67,6 +68,8 @@ router.post("/:id/show", function(req, res){
               }, function(err, message) {
               console.log(message.sid, err);
         });
+
+       }
    }
      res.render('plates/show', {myPlate:id});
    })

@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req,res,next){
-  req.session.user = 6;
+  // req.session.user = 6;
   if(req.session.user){
     db.user.findById(req.session.user).then(function(user){
     req.currentUser = user
