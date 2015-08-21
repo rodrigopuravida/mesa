@@ -40,7 +40,12 @@ router.get("/mychefs", function(req, res){
 router.get("/:id/show", function(req, res){
   var id = req.params.id
   db.plate.findById(id).then(function(plate){
-            res.render('plates/show', {myPlate: plate});
+    db.user.find({
+      where: {id: req.user.id},
+      include: [db.chef]
+    }).then(function(user){
+    res.render('plates/show', {myPlate: plate, thisUser: user});
+    })
           });
 });
 
@@ -70,7 +75,7 @@ router.post("/:id/show", function(req, res){
 
        }
    }
-     res.render('plates/show', {myPlate:id});
+     res.redirect('/plates/new');
    })
  })
 })

@@ -39,7 +39,7 @@ db.user.find({
       console.log('Following Chef')
     });
   });
-res.redirect('/users/index');
+res.redirect('/plates/new');
 });
 console.log('yay following')
 } else if  (req.body.toggle === 'unfollow'){
@@ -57,7 +57,7 @@ res.redirect('/users/index');
 });
 console.log('boo unfollowing')
 } else {
-  res.redirect('/users/index')
+  res.redirect('/plates/new')
 }
 });
 
