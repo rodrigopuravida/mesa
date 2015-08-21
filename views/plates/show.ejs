@@ -1,11 +1,12 @@
 <div style='text-align: center'>
 
-<div class='well foodcard'>
-        <img class='platephoto' src=<%= myPlate.photo%>>
+<div class='well foodcardbig'>
+        <img class='platephotobig' src=<%= myPlate.photo%>>
         <h3><a href='/plates/<%= myPlate.id%>/show'><%= myPlate.name %></a></h3>
         <p><%= myPlate.description %></p>
 </div>
 
+<% if (thisUser) {%>
 <% if (thisUser.isChef) {%>
 <% if (myPlate.chefId  === thisUser.chef .id){ %>
 <div style='text-align: center'>
@@ -15,5 +16,5 @@
 </div>
 <% };  %>
 <% };  %>
-
+<% };  %>
 </div>

@@ -27,3 +27,9 @@
 <% };  %>
 <% };  %>
 </div>
+<div style='text-align: center; margin-top: 10px'>
+<%plates.forEach(function(plate) { %>
+                <h4><a href='/plates/<%= plate.id%>/show'><%= plate.name %></a></h4>
+                <img class='platephoto' src=<%= plate.photo%>>
+<% }); %>
+</div>

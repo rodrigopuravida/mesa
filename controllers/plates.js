@@ -42,6 +42,7 @@ router.get("/mychefs", function(req, res){
 
 // View Individual Plate
 router.get("/:id/show", function(req, res){
+    if(req.user){
   var id = req.params.id
   db.plate.findById(id).then(function(plate){
     db.user.find({
@@ -51,6 +52,10 @@ router.get("/:id/show", function(req, res){
     res.render('plates/show', {myPlate: plate, thisUser: user});
     })
           });
+  }else{
+  req.flash("danger", "Please login to view chefs and see their plates.");
+  res.redirect('/auth/login');
+}
 });
 
 //Twilio Post
