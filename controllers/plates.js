@@ -7,7 +7,7 @@ var twilio = require('twilio');
 // View Today's Plates
 router.get("/new", function(req, res){
   db.plate.findAll().then(function(plate){
-     res.render('plates/new', {plates: plate});
+     res.render('plates/new', {taco: plate});
   })
 });
 

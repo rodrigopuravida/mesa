@@ -10,7 +10,7 @@ var twilio = require('twilio');
 // View All Chefs
 router.get("/", function(req, res){
     db.chef.findAll({
-    include : [db.user]
+    include : [db.user, db.plate]
   }).then(function(chef) {
     res.render('chefs/index', {chefs: chef});
       });
@@ -74,6 +74,7 @@ router.get("/plates/new", function(req, res){
 // Chef Posts A Post New Plate
 router.post("/plates/new", function(req, res){
         var id = req.user.id
+        console.log(req.user)
 //Cloudinary Upload Section
         // console.log('I am at create stage of plate past Cloudinary upload');
          db.chef.find({
@@ -86,7 +87,7 @@ router.post("/plates/new", function(req, res){
                 deal: req.body.deal
                 });
         });
-        res.render('plates/new');
+        res.redirect('/plates/new');
 });
 
 function waitForAllUploads(id,err,image){
