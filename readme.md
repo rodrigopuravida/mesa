@@ -13,7 +13,7 @@ community, and keep up to date with the magic they create
 
 ![Alt text](https://cloud.githubusercontent.com/assets/9797122/9406766/3de4351c-47b8-11e5-8cb3-2458a97e07db.png)
 
-Chefs can upload their specails and send texts to Patrons directly
+Chefs can upload their specials and send texts to Patrons directly
 via twilio
 
 ![Alt text](https://cloud.githubusercontent.com/assets/9797122/9449541/023a3708-4a58-11e5-8975-5ec804eefe9c.PNG)
