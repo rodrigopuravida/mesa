@@ -16,7 +16,6 @@ router.get("/show", function(req, res) {
         include: [db.chef]
     }).then(function(user) {
         res.render('users/show', {user:user})
-
      });
 });
 
@@ -61,12 +60,10 @@ router.post("/edit", function(req, res){
                         });
                 });
         } else if ((thisUser.isChef === null) || (thisUser.isChef === false)) {
-            console.log("**********************please this user id", thisUser.id)
               db.user.findById(thisUser.id).then(function(user){
                         user.name = req.body.name;
                         user.email =req.body.email;
                         user.phone = req.body.phone;
-                        // console.log("***********************",req.body.chef)
                         user.isChef = req.body.chef;
                         user.save().then(function(user){
                             if (user.isChef === true){
@@ -81,12 +78,7 @@ router.post("/edit", function(req, res){
                                 });
                     });
          }
-
         // res.redirect('/')
 });
-
- // author.createPost({title: req.body.title, body: req.body.body}).then(function(post) {
- //      res.redirect('/posts/' + post.id);
-
 
 module.exports = router;

@@ -1,36 +1,40 @@
-<h2 style='text-align: center'>please keep us up to date</h2>
+<h2 class='red'>please keep us up to date</h2>
 <div class="col-md-6 col-md-offset-3">
-<form action="/users/edit" method="POST" role="form">
+    <form action="/users/edit" method="POST" role="form">
         <div class="form-group">
 
-                <% var user = mychef.user ? mychef.user : mychef %>
-                        <input type="text" class="form-control" name="name" value="<%= user.name %>">
-                        <input type="text" class="form-control" name="email" value="<%= user.email %>">
-                        <input type="text" class="form-control" name="phone" placeholder='please provide a phone number' value="<%= user.phone %>" onkeypress="return isNumberKey(event)">
-                        <!-- <INPUT id="txtChar"  type="text" name="txtChar"> -->
-                        <div style='text-align: center'>
-                        <select name='chef'>
-                                <option value="<%= user.isChef  %>">
-                                                            <% if(user.isChef === true) { %>
-                                        <p>You're a chef, want to change?</p>
-                             <% } else  { %>
-                                        <p>you're a patron, want to change?</p>
-                             <% } %>
+            <% var user = mychef.user ? mychef.user : mychef %>
+            <input type="text" class="form-control" name="name" value="<%= user.name %>">
+            <input type="text" class="form-control" name="email" value="<%= user.email %>">
+            <input type="text" class="form-control" name="phone" placeholder='please provide a phone number' value="<%= user.phone %>" onkeypress="return isNumberKey(event)">
+            <div style='text-align: center'>
+                <select name='chef'>
+                    <option value="<%= user.isChef  %>">
+                        <% if(user.isChef === true) { %>
+                        <p>You're a chef, want to change?</p>
+                        <% } else  { %>
+                        <p>You're a patron, want to change?</p>
+                        <% } %>
 
-                                </option>
-                                <option value="true">I'm a chef.</option>
-                                <option value="false">I just want to eat.</option>
+                    </option>
+                    <option value="true">I'm a chef.</option>
+                    <option value="false">I just want to eat.</option>
                 </select>
-                </div>
-                <% if(mychef.user) { %>
-                        <input type="text" class="form-control" name="restaurant" placeholder='your restauant name' value="<%= mychef.restaurant %>">
-                        <input type="text" class="form-control" name="location" placeholder='your restaurant location' value="<%= mychef.location %>">
-                        <input type="text" class="form-control" name="bio" placeholder='a little about you' value="<%= mychef.bio %>">
-                <% } %>
+            </div>
+            <% if(mychef.user) { %>
+            <input type="text" class="form-control" name="restaurant" placeholder='your restauant name' value="<%= mychef.restaurant %>">
+            <input type="text" class="form-control" name="location" placeholder='your restaurant location' value="<%= mychef.location %>">
+            <input type="text" class="form-control" name="bio" placeholder='a little about you' value="<%= mychef.bio %>">
+            <% } %>
         </div>
-    <div style='text-align: center'>
-        <button type="submit" class="btn btn-default">update your profile</button>
+        <div style='text-align: center'>
+            <button type="submit" class="btn btn-default red">update your profile</button>
         </div>
-</form>
+    </form>
+    <% var user = mychef.user ? mychef.user : mychef %>
+     <% if(user.isChef === true) { %>
+    <button href-'#' class="buttons btn btn-default red">view your profile</button>
+     <% } %>
 </div>
+
 

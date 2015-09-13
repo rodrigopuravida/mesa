@@ -42,16 +42,16 @@ router.get('/login',function(req,res){
 // Post Login
 router.post('/login',function(req,res){
  passport.authenticate(
-   'local', {badRequestMessage:'Please provide an email and password.'},
+   'local', {badRequestMessage:'please provide a valid email and password'},
    function(err,user,info){
      if(user){
        req.login(user,function(err){
          if(err) throw err;
-         req.flash('success','Welcome to Mesa!');
+         req.flash('success','hi '+ user.name);
          res.redirect('/plates/new');
        });
      }else{
-       req.flash('danger',info.message || 'Unknown error.');
+       req.flash('danger',info.message || "oh no, something wen't wrong, please try again");
        res.redirect('/auth/login');
      }
    }
@@ -73,11 +73,11 @@ router.get('/callback/:provider',function(req,res){
    if(user){
      req.login(user,function(err){
        if(err) throw err;
-       req.flash('success','Welcome to Mesa!');
+       req.flash('success','hi '+ user.name);
        res.redirect('/plates/new');
      });
    }else{
-     req.flash('danger',info.message || 'Unknown error.');
+     req.flash('danger',info.message || "oh no, something wen't wrong, please try again");
      res.redirect('/auth/login');
    }
  })(req,res);
@@ -86,7 +86,7 @@ router.get('/callback/:provider',function(req,res){
 // Logout Route
 router.get('/logout',function(req,res){
    req.logout();
-   req.flash('info','Goodbye, until we dine again!');
+   req.flash('info','goodbye, until we dine again!');
    res.redirect('/');
 });
 
