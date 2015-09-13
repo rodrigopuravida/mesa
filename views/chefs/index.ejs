@@ -1,9 +1,9 @@
-<h2 style='text-align: center'>mesa chefs</h2>
-
+<h2 class='red'>mesa chefs</h2>
+<br>
 <%chefs.forEach(function(chef) { %>
-        <div class='well chefcard'>
+<div class=' showPlates chefcard'>
         <img class='chefphoto' src=<%= chef.photo%>>
-        <h3><a href='/chefs/<%= chef.id %>/show'><%= chef.user.name %></a></h3>
+        <h3><a href='/chefs/<%= chef.id %>/show' class='red'><%= chef.user.name %></a></h3>
         <h3><%= chef.restaurant %></h3>
-        </div>
+</div>
 <% }); %>

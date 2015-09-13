@@ -1,168 +1,123 @@
-body{
-/*     background-color: #9AABD1;
-     opacity: .5;
-  background-color: rgba(255,255,255,.85);*/
-}
-#bioswrapper{
+body * {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   text-align: center;
 }
-#bioswrapper .biodivs{
-  display: inline-block;
-  text-align: center;
+a {
+  color: inherit;
 }
-.biodivs{
-  width: 300px;
-  height: 1700px;
+#mainbody{
+margin-top: 75px;
 }
-.mainbody{
-        margin: 125px auto;
-        font-family: 'Lato', sans-serif;
+#navbar {
+    background-color: #E04744;
+    opacity: .8;
 }
-#buffer{
-  min-height: 125px;
+#navbar *{
+  color: white;
+  background-color: #E04744;
 }
-#logindiv {
-  margin-top:  15px;
-}
-#inline *{
-  display:inline;
-}
-#inline img{
-  margin-right: 15px;
-}
-#logo{
-  padding: 10px;
-}
-.navitems{
-  color:blue;
-}
-#chefphoto{
-  height: 300px;
-  width: 300px;
-/*  border-radius: 50%;*/
-}
-.chefphoto{
-  height: 300px;
-  width: 300px;
-  border-radius: 50%;
-}
-.aboutphoto{
-  height: 300px;
-  width: 300px;
-  border-radius: 50%;
-}
-.platephoto{
-  height: 250px;
-  width: 375px;
-}
-.well{
+.choice button{
+  border: none;
   background-color: white;
-  display: inline-table;
-  padding: 0px;
+  color: #E04744;
 }
-.foodcard{
-  width: 375px;
-  height: 375px;
-  text-align: center;
-  /*border-style: solid;
-  border-color: #B9B9B9;
-  border-width: 3px;*/
-  margin-bottom: 10px;
-  border-radius: 2px
+#chefInstructions{
+display: none;
 }
-.foodcardbig{
-  width: 600px;
-  height: 650px;
-  text-align: center;
-  /*border-style: solid;
-  border-color: #B9B9B9;
-  border-width: 3px;*/
-  margin-bottom: 10px;
-  border-radius: 2px
+#patronInstructions{
+   display: none;
 }
-.platephotobig{
-  height: 550px;
-  width: 650px;
+.red{
+  color: #E04744;
 }
-.form-group input {
-  margin: 5px;
+.myAlerts{
+  background-color: transparent;
+  color: #E04744;
 }
-#upload{
-text-align: center;
- }
- #radio{
-text-align: center;
- }
-.chefcard{
-  width: 375px;
-  height: 500px;
-  text-align: center;
-  /*border-style: solid;
-  border-color: #B9B9B9;
-  border-width: 3px;*/
-  margin-bottom: 10px;
-  border-radius: 2px
+
+/*Home Page CSS*/
+.home{
+margin-top: -75px;
 }
-#signupinfo{
-  margin-bottom: 50px;
-}
-#logindiv p {
-  display: inline;
-  margin-right: 15px;
-  }
-#fblogin{
-  margin-top: 5px;
-}
-.mesatxt{
-        text-align: center;
-        margin-top: 0 auto;
-        background-color: rgba(255,255,255,.7);
-        /*background-color: transparent;*/
-        /*background-color: rgba(255,255,255,.85);*/
-        /*opacity:0.4;*/
-        /*background-color: white;*/
-        height: 250px;
-}
-.parent {
-  opacity: 0;
-}
-.imgdivs{
-       /* margin: 0 auto;*/
+.imgdiv{
         height: 750px;
-       /* width: 900px;*/
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        /*background-size:contain;*/
-        background-position:center;
 }
-.navbar-default {
-/*    background-color: #9AABD1;*/
-  background-color: rgba(255,255,255,.85);
-/*opacity: .4;*/
-}
-div.navbar-header a.navbar-brand {
-  color: #222222;
-  padding-top: 14px;
-  padding-left: ;
-}
-div.navbar-header a.navbar-brand:hover {
-  color: #F77857;
-  padding-top: 14px;
-}
-.navbar-brand-img{
-  background-color: rgba(255,255,255,.85);
+.mesatxt{
+        height: 250px;
+        text-align: center;
+        background-color: transparent;
 }
 #div1{
         background-image: url('http://blogs-images.forbes.com/alexkonrad/files/2015/04/default.png');
 }
 #div2{
-        background-image: url('http://sandiegofoodfinds.com/wp-content/uploads/2013/01/Chef-Simon-Saltbox.jpg');
+        background-image: url('http://foodnetwork.sndimg.com/content/dam/images/food/fullset/2013/10/2/0/FN_Alton-Brown-Bow-Tie-02-Horz_s4x3.jpg');
 }
 #div3{
-        background-image: url('http://res.cloudinary.com/sagacity/image/upload/c_crop,h_1180,w_900,x_0,y_25/c_scale,w_1080/v1414533886/loulay-chef_gh3dhn.jpg');
-        /*http://i.ytimg.com/vi/bVAQm0u55Z8/maxresdefault.jpg*/
+        background-image: url('http://sandiegofoodfinds.com/wp-content/uploads/2013/01/Chef-Simon-Saltbox.jpg');
 }
-#signupdiv{
-        display: inline-block;
+#div4{
+        background-image: url('https://growingchefsbc.files.wordpress.com/2011/11/hmg-gc-gala-145.jpg');
 }
+
+/*About Page CSS*/
+.bios{
+  display: inline-block;
+}
+.aboutphoto{
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+/*Signup Page CSS*/
+#signup{
+   display: none;
+}
+#isChef{
+  display: none;
+}
+
+/*Plates CSS*/
+.platephoto{
+  height: 250px;
+  width: 375px;
+}
+.platephotobig{
+  height: 450px;
+  width: 650px;
+}
+.foodcard{
+  width: 375px;
+  height: 375px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline-block
+}
+
+/*Chef CSS*/
+.chefphoto{
+  height: 300px;
+  width: 300px;
+}
+.chefcard{
+  width: 325px;
+  height: 325px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline-block
+}
+
+/*Forms*/
+.form-group input {
+  margin: 5px;
+}
+.buttons{
+  margin-top: 5px;
+}
+

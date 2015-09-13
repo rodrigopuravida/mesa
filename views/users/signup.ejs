@@ -1,51 +1,59 @@
 
-<div id='signupinfo' style='text-align: center'>
-<h2>welcome to la mesa</h2>
-<h3>patrons find your favorite local chefs and be the first to know what marvels they create</h3>
-<h3>chefs share special plates that excite you and let your followers know the inside scoop</h3>
-<h3>please fill out the bellow form to sign up with mesa</h3>
-</div>
 
-<div class="col-md-6 col-md-offset-3">
-<form action="/auth/signup" method="POST" role="form">
+  <div id='signupIntro'>
+  <h2>welcome to la mesa</h2>
+    <h4>using mesa is simple</h4>
+    <h4>when you create a mesa account simply tell us whether you're a<span class='choice' id='choseChef'><button>chef</button></span> or a<span class='choice' id='chosePatron'><button>foodie</button></span></h4>
+    <h4>...and don't worry, you can always change your status in your profile later!</h4>
+  </div>
+
+  <div id='chefInstructions'>
+    <h2>welcome to la mesa <span class='red'>chef</span></h2>
+  </div>
+
+  <div id='patronInstructions'>
+    <h2>welcome to la mesa <span class='red'>foodie</span></h2>
+  </div>
 
 
+  <div  id='signup'>
+  <h4>signup with your email below or you can signup with <a style='color: #2D4486' href="login/facebook">facebook</a></h4>
 
+    <div class="col-md-6 col-md-offset-3">
+      <form action="/auth/signup" method="POST" role="form">
         <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="your name">
-                <input type="text" class="form-control" name="email" placeholder="your email">
-                <input type="text" class="form-control" name="phone" placeholder="your phone number" onkeypress="return isNumberKey(event)">
-                <input type="password" class="form-control" name="password" placeholder="password">
-                <input type="password" class="form-control" placeholder="confirm password">
-                <div id='radio'>
-                    <input type="radio" name="chef" value=true>sign me up as a chef<br>
-                </div>
-                <input type="text" class="form-control" name="restaurant" placeholder="your restaurant name">
-                <input type="text" class="form-control" name="location" placeholder="your restaurant location">
-                <input type="text" class="form-control" name="bio" placeholder="about you">
-                <div id='upload'>
-                    <a href="#" id="upload_widget_opener">select a photo for my profile</a>
-                </div>
-                      <script type="text/javascript">
-                      document.getElementById("upload_widget_opener").addEventListener("click", function() {
-
-                      cloudinary.openUploadWidget({ cloud_name: 'dpqunwmnb', upload_preset: 'r7wc50dt'},
-                      function(error, result) {
-                        console.log(result[0]["url"]);
-                        console.log(error, result)
-                        var photoLocation = $('#photo_url');
-                        photoLocation.val(result[0]["url"]);
-
-                      });
-
-                      }, false);
-                      </script>
-                      <input type="text" class="form-control" name="photo" value = '' id = 'photo_url' readonly>
-       <!--          <input type="text" class="form-control" name="photo" placeholder="photo"> -->
+          <input type="text" class="form-control" name="name" placeholder="name">
+          <input type="text" class="form-control" name="email" placeholder="email">
+          <input type="text" class="form-control" name="phone" placeholder="phone number" onkeypress="return isNumberKey(event)">
+          <input type="password" class="form-control" name="password" placeholder="password">
+          <input type="password" class="form-control" placeholder="confirm password">
+          <div id='isChef'>
+            <div id='radio'>
+              <input type="radio" name="chef" value=true>sign me up as a chef<br>
+            </div>
+            <input type="text" class="form-control" name="restaurant" placeholder="restaurant name">
+            <input type="text" class="form-control" name="location" placeholder="restaurant location">
+            <input type="text" class="form-control" name="bio" placeholder="a little about you">
+            <div id='upload'>
+              <a href="#" id="upload_widget_opener">select a photo for my profile</a>
+            </div>
+            <script type="text/javascript">
+              document.getElementById("upload_widget_opener").addEventListener("click", function() {
+                cloudinary.openUploadWidget({ cloud_name: 'dpqunwmnb', upload_preset: 'r7wc50dt'},
+                  function(error, result) {
+                    console.log(result[0]["url"]);
+                    console.log(error, result)
+                    var photoLocation = $('#photo_url');
+                    photoLocation.val(result[0]["url"]);
+                  });
+              }, false);
+            </script>
+            <input type="text" class="form-control" name="photo" value = '' id = 'photo_url' readonly>
+          </div>
         </div>
-        <div style='text-align: center'>
-        <button type="submit" class="btn btn-default">sign up</button>
-        </div>
-</form>
-</div>
+        <button type="submit" class="btn btn-default red">sign me up</button>
+
+      </form>
+    </div>
+  </div>
 
