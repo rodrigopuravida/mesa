@@ -13,14 +13,16 @@ community, and keep up to date with the magic they create
 
 ![Alt text](https://cloud.githubusercontent.com/assets/9797122/9406766/3de4351c-47b8-11e5-8cb3-2458a97e07db.png)
 
-Chefs can upload their specails and send texts to Patrons directly
-via twilio updating them on their latest and greatest inventions
+Chefs can upload their specials and send texts to Patrons directly
+via twilio
 
-![Alt text](https://cloud.githubusercontent.com/assets/9797122/9425590/3e2b16b8-48ca-11e5-9ebf-7c2e53a51a9a.PNG)
+![Alt text](https://cloud.githubusercontent.com/assets/9797122/9449541/023a3708-4a58-11e5-8975-5ec804eefe9c.PNG)
+
+This lets chefs showcase their latest and greatest inventions
 
 ![Alt text](https://cloud.githubusercontent.com/assets/9797122/9406807/8c957f22-47b8-11e5-95f3-a1a90f6cf53d.png)
 
-Everony together en la mesa enjoying one of the most beutiful
+Everyone together en la mesa enjoying one of the most beutiful
 things in life - community with purpose & some damn good food
 
 ![Alt text](https://cloud.githubusercontent.com/assets/9797122/9406838/c4bf9c34-47b8-11e5-85e3-cd7d858a8da0.png)
